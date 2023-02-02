@@ -1,0 +1,12 @@
+
+    <input
+    type="file"
+    id="fileInput"
+    name="fileInput"
+    accept="image/*" multiple 
+    (change)="selectFiles($event)"
+  />
+
+  <div>
+    <img *ngFor='let preview of previews' [src]="preview" class="preview">
+  </div>
