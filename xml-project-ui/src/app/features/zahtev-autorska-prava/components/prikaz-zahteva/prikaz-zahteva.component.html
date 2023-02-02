@@ -1,0 +1,62 @@
+<div class="main-conatiner">
+    <div class="search-field" [formGroup]="form">
+        <mat-form-field class="search-bar" appearance="fill">
+            <mat-label>Претражи</mat-label>
+            <input formControlName="query" matInput>
+        </mat-form-field>
+
+        <button class="search-button" mat-raised-button color="primary" (click)="search()" [disabled]="form.controls['query'].value === ''"><mat-icon>search</mat-icon>Претражи</button>
+        <button *ngIf="showCancelSearch" class="search-button" mat-raised-button color="warn" (click)="getAllPending()">Поништи</button>
+    </div>
+    <div class="requests">
+        <div *ngFor="let item of zahtevi; let i = index" class="requests">
+            <mat-card class="example-card">
+                <mat-card-header>
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>{{item.naslov_autorskog_dela.naslov}}</mat-card-title>
+                  <mat-card-subtitle>{{item.naslov_autorskog_dela.alternativni_naslov}}</mat-card-subtitle>
+                </mat-card-header>            
+                <mat-card-content>
+                  <b>Подносилац: </b> {{getPodnosilac(i)}}
+                  <br />
+                  <b>Адреса подносиоца: </b> {{getAdresaPodnosioca(i)}}
+                  <br />
+                  <br />
+                  <b>Аутор дела: </b> {{getAutor(i)}}
+                  <br />
+                  <b>Псеудоним аутора: </b> {{item.pseudonim_znak_autora}}
+                  <br />
+                  <br />
+                  <b>Пуномоћник: </b> {{getPunomocnik(i)}}
+                  <br />
+                  <b>Дело прераде: </b> {{getDeloPrerade(i)}}
+                  <br />
+                  <b>Врста ауторког дела: </b> {{item.vrsta_autorskog_dela}}
+                  <br />
+                  <b>Форма записа ауторког дела: </b> {{item.forma_zapisa_autorskog_dela}}                                    
+                  <br />
+                  <b>Радни однос: </b> {{item.autorsko_delo_stvoreno_radnim_odnosom}}
+                  <br />
+                  <br />
+                  <b>Број пријаве: </b> {{item.broj_prijave}}
+                  <br />
+                  <b>Датум подношења пријаве: </b> {{item.datum_podnosenja}}                
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-raised-button color="warn"><mat-icon>clear</mat-icon>Одбиј</button>
+                  <button mat-raised-button color="primary"><mat-icon>done</mat-icon>Прихвати</button>
+                  <button mat-raised-button [matMenuTriggerFor]="aboveMenu1">Преузми документ</button>
+                  <mat-menu #aboveMenu1="matMenu" yPosition="above">
+                    <button mat-menu-item>PDF формат</button>
+                    <button mat-menu-item>XHTML формат</button>
+                  </mat-menu>
+                  <button mat-raised-button [matMenuTriggerFor]="aboveMenu2">Преузми метаподатке</button>
+                  <mat-menu #aboveMenu2="matMenu" yPosition="above">
+                    <button mat-menu-item>RDF формат</button>
+                    <button mat-menu-item>JSON формат</button>
+                  </mat-menu>
+                </mat-card-actions>
+              </mat-card>
+        </div>
+    </div>
+</div>
