@@ -16,7 +16,7 @@ export class AutorskaPravaFormGeneratorService {
       phoneNumber: new FormControl('',[Validators.required, Validators.pattern('^[0-9]{9,12}$')]),
       email: new FormControl('',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       street: new FormControl('', Validators.required),
-      streetNumber: new FormControl('',[Validators.required, Validators.pattern('^[0-9]+[a-zабвгд]?')]),
+      streetNumber: new FormControl('',[Validators.required, Validators.pattern('^[0-9]+$')]),
       city: new FormControl('', Validators.required),
       zipCode: new FormControl('',[Validators.required, Validators.pattern('^1[1-9][0-9]{3}|2[0-9]{4}|3[0-9]{4}$')])
     });
@@ -28,7 +28,7 @@ export class AutorskaPravaFormGeneratorService {
       phoneNumber: new FormControl('',[Validators.required, Validators.pattern('^[0-9]{9,12}$')]),
       email: new FormControl('',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       street: new FormControl('', Validators.required),
-      streetNumber: new FormControl('',[Validators.required, Validators.pattern('^[0-9]+[a-zабвгд]?')]),
+      streetNumber: new FormControl('',[Validators.required, Validators.pattern('^[0-9]+$')]),
       city: new FormControl('', Validators.required),
       zipCode: new FormControl('',[Validators.required, Validators.pattern('^1[1-9][0-9]{3}|2[0-9]{4}|3[0-9]{4}$')])
     });
@@ -45,7 +45,7 @@ export class AutorskaPravaFormGeneratorService {
       name: new FormControl(''),
       surname: new FormControl(''),
       street: new FormControl(''),
-      streetNumber: new FormControl('',[Validators.pattern('^[0-9]+[a-zабвгд]?')]),
+      streetNumber: new FormControl('',[Validators.pattern('^[0-9]+$')]),
       city: new FormControl(''),
       zipCode: new FormControl('',[Validators.pattern('^1[1-9][0-9]{3}|2[0-9]{4}|3[0-9]{4}$')])
     });
@@ -72,7 +72,7 @@ export class AutorskaPravaFormGeneratorService {
       surname: new FormControl('', Validators.required),
       citizenship: new FormControl('', Validators.required),
       street: new FormControl('', Validators.required),
-      streetNumber: new FormControl('',[Validators.required, Validators.pattern('^[0-9]+[a-zабвгд]?')]),
+      streetNumber: new FormControl('',[Validators.required, Validators.pattern('^[0-9]+$')]),
       city: new FormControl('', Validators.required),
       zipCode: new FormControl('',[Validators.required, Validators.pattern('^1[1-9][0-9]{3}|2[0-9]{4}|3[0-9]{4}$')])
     });
@@ -82,7 +82,7 @@ export class AutorskaPravaFormGeneratorService {
     return new FormGroup({
       name: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
-      deathYear: new FormControl('', [Validators.required, Validators.pattern('^[1-2][0-9]{0,3}')])
+      deathYear: new FormControl('', [Validators.required, Validators.pattern('^[1-2][0-9]{0,3}$')])
     });
   }
 

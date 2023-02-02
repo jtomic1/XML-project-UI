@@ -26,7 +26,7 @@ export class AutorskaPravaFactoryService {
       naziv: 'Zavod za intelektualnu svojinu',
       adresa: {
         ulica: 'Kneginje Ljubice',
-        broj: '5',
+        broj: 5,
         grad: 'Beograd',
         postanski_kod: 11000
       }
@@ -217,7 +217,7 @@ export class AutorskaPravaFactoryService {
         drzavljanstvo: '',
         adresa: {
           ulica: '',
-          broj: '',
+          broj: 0,
           grad: '',
           postanski_kod: 0
         },
