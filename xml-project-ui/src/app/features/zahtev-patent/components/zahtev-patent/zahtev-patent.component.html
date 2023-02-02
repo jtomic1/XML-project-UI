@@ -1,0 +1,21 @@
+<form [formGroup]="form">
+  <mat-card>
+    <mat-stepper color="primary" orientation="vertical">
+      <mat-step>
+        <ng-template matStepLabel>Назив проналаска</ng-template>
+        <ng-template matStepContent>
+          <app-naziv-pronalaska
+            [form]="getFormGroup('nazivPronalaska')"
+          ></app-naziv-pronalaska>
+        </ng-template>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Подносилац пријаве</ng-template>
+        <ng-template matStepContent>
+          <app-podnosilac-prijave></app-podnosilac-prijave>
+        </ng-template>
+      </mat-step>
+    </mat-stepper>
+  </mat-card>
+</form>

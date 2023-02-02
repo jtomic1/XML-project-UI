@@ -7,7 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './shared/material/material.module';
-import { Kt2Module } from './features/kt2/kt2.module';
+import { StartpageModule } from './features/startpage/startpage.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './shared/interceptor/TokenInterceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,12 +18,19 @@ import { Kt2Module } from './features/kt2/kt2.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
+    HttpClientModule,
     SharedModule,
     BrowserAnimationsModule,
     MaterialModule,
-    Kt2Module,
+    StartpageModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -5,6 +5,7 @@ import { MaterialModule } from './material/material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [MessageComponent, NavbarComponent],
@@ -13,6 +14,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MaterialModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    RouterModule,
   ],
   exports: [MaterialModule, NavbarComponent],
 })

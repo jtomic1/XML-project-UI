@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { StartpageLoginComponent } from './components/startpage-login/startpage-login.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormTabsContainerComponent } from './components/form-tabs-container/form-tabs-container.component';
+import { StartpageRegisterComponent } from './components/startpage-register/startpage-register.component';
 
 @NgModule({
-  declarations: [FormTabsContainerComponent],
+  declarations: [StartpageLoginComponent, StartpageRegisterComponent],
   imports: [
     CommonModule,
-    SharedModule,
     RouterModule,
+    SharedModule,
     ReactiveFormsModule,
     FontAwesomeModule,
   ],
-  exports: [FormTabsContainerComponent],
 })
-export class Kt2Module {}
+export class StartpageModule {}

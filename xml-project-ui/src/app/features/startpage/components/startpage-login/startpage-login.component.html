@@ -1,0 +1,42 @@
+<mat-card mat-elevation-z8>
+  <mat-card-content>
+    <form [formGroup]="form">
+      <h2 id="login-label">Пријава</h2>
+
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="username"
+          placeholder="Корисничко име"
+          name="username"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          placeholder="Лозинка"
+          name="password"
+        />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        type="button"
+        id="login-button"
+        color="primary"
+        [disabled]="form.invalid"
+        (click)="loginRequest()"
+      >
+        Пријави се
+      </button>
+      <mat-divider inset></mat-divider>
+      <h4>Не поседујете налог?</h4>
+      <a [routerLink]="['/register']" href="javascript:void(0);">
+        Региструјте се!</a
+      >
+    </form>
+  </mat-card-content>
+</mat-card>
