@@ -1,0 +1,58 @@
+.main-container {
+    display: flex;
+    justify-content: center;
+}
+
+.form-accordion {
+    margin-top: 30px;
+    width: 70%;
+    margin-bottom: 10px;
+}
+
+mat-panel-title {
+    font-weight: bold;
+    font-size: large;
+}
+
+mat-accordion {
+    width: 100%;
+}
+
+form {
+    margin-top: 15px;
+    display: flex;    
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+mat-radio-group {
+    flex: display;
+    justify-content: center;
+}
+
+mat-radio-button {
+    margin-left: 15px;
+}
+
+mat-form-field {
+    width: 70%;
+}
+
+.is-autor {
+    margin-top: 15px;
+}
+
+.work-type {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.file-name {
+    margin-left: 10px;
+}

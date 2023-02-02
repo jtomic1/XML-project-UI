@@ -1,0 +1,507 @@
+<div class="main-container">
+    <div class="form-accordion">
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Подносилац
+                </mat-panel-title>
+                <mat-panel-description>
+                  Основни подаци подносиоца            
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-radio-group (change)="onPodnosilacChange($event)" aria-label="Изаберите врсту подносиоца">
+                <b>Изаберите врсту подносиоца: </b>
+                <mat-radio-button value="1" [checked]="true">Физичко лице</mat-radio-button>
+                <mat-radio-button value="2">Правно лице</mat-radio-button>
+              </mat-radio-group>
+              <div [ngSwitch]="selectedPodnosilac">
+                <div *ngSwitchCase="1">
+                    <form [formGroup]="individualForm">
+                        <div class="form-column">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Име</mat-label>
+                                <input matInput formControlName="name">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Презиме</mat-label>
+                                <input matInput formControlName="surname">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Држављанство</mat-label>
+                                <input matInput formControlName="citizenship">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Телефон</mat-label>
+                                <input matInput formControlName="phoneNumber">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Имејл-адреса</mat-label>
+                                <input matInput formControlName="email">
+                            </mat-form-field>
+                        </div>
+                        <div class="form-column">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Улица</mat-label>
+                                <input matInput formControlName="street">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Број улице</mat-label>
+                                <input matInput formControlName="streetNumber">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Град</mat-label>
+                                <input matInput formControlName="city">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Поштански код</mat-label>
+                                <input matInput formControlName="zipCode">
+                            </mat-form-field>
+                                                        
+                            <mat-checkbox (change)="onAutorCheckboxChange($event)" class="is-autor">Подносилац је аутор</mat-checkbox>                            
+                        </div>                        
+                    </form>
+                </div>
+                <div *ngSwitchCase="2">
+                    <form [formGroup]="legalEntityForm">
+                        <div class="form-column">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Пословно име</mat-label>
+                                <input matInput formControlName="businessName">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Телефон</mat-label>
+                                <input matInput formControlName="phoneNumber">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Имејл-адреса</mat-label>
+                                <input matInput formControlName="email">
+                            </mat-form-field>
+                        </div>
+                        <div class="form-column">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Улица</mat-label>
+                                <input matInput formControlName="street">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Број улице</mat-label>
+                                <input matInput formControlName="streetNumber">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Град</mat-label>
+                                <input matInput formControlName="city">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance="fill">
+                                <mat-label>Поштански код</mat-label>
+                                <input matInput formControlName="zipCode">
+                            </mat-form-field>    
+                        </div>                        
+                    </form>
+                </div>                    
+              </div>                
+                                        
+
+              <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Следеће</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          
+            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Псеудоним
+                </mat-panel-title>
+                <mat-panel-description>
+                  Псеудоним или знак аутора                  
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <form [formGroup]="pseudonimForm">
+                <div class="form-column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Псеудоним</mat-label>
+                        <input matInput formControlName="pseudonim">
+                    </mat-form-field>    
+                </div>
+                <div class="form-column"></div>
+              </form>
+                        
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Претходно</button>
+                <button mat-button color="primary" (click)="nextStep()">Следеће</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          
+            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Пуномоћник
+                </mat-panel-title>
+                <mat-panel-description>
+                  Основни подаци пуномоћника            
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              
+              <form [formGroup]="punomocnikForm">
+                <div class="form-column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Име</mat-label>
+                        <input matInput formControlName="name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Презиме</mat-label>
+                        <input matInput formControlName="surname">
+                    </mat-form-field>
+                </div>
+                <div class="form-column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Улица</mat-label>
+                        <input matInput formControlName="street">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Број улице</mat-label>
+                        <input matInput formControlName="streetNumber">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Град</mat-label>
+                        <input matInput formControlName="city">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Поштански код</mat-label>
+                        <input matInput formControlName="zipCode">
+                    </mat-form-field>                                                                    
+                </div>                        
+              </form>
+          
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Претходно</button>
+                <button mat-button color="primary" (click)="nextStep()">Следеће</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Наслов дела
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Подаци о насловима ауторског дела                    
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                
+                <form [formGroup]="titleForm">
+                    <div class="form-column">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Наслов ауторског дела</mat-label>
+                            <input matInput formControlName="title">
+                        </mat-form-field>                        
+                    </div>
+                    <div class="form-column">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Aлтернативни наслов</mat-label>
+                            <input matInput formControlName="altTitle">
+                        </mat-form-field>                                                
+                    </div>                        
+                </form>
+            
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Претходно</button>
+                  <button mat-button color="primary" (click)="nextStep()">Следеће</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Дело прераде
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Подаци о делу прераде                  
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-radio-group (change)="onAdaptationChanged($event)">
+                    <b>Да ли је ауторско дело дело прераде: </b>
+                    <mat-radio-button value="1" [checked]="true">Ауторско дело није дело прераде</mat-radio-button>
+                    <mat-radio-button value="2">Ауторско дело јесте дело прераде</mat-radio-button>
+                </mat-radio-group>
+                <div [ngSwitch]="selectedPrerada">
+                    <div *ngSwitchCase="1"></div>
+                    <div *ngSwitchCase="2">
+                        <form [formGroup]="adaptationForm">
+                            <div class="form-column">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Наслов дела</mat-label>
+                                    <input matInput formControlName="title">
+                                </mat-form-field>                        
+                            </div>
+                            <div class="form-column">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Име аутора</mat-label>
+                                    <input matInput formControlName="name">
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Презиме аутора</mat-label>
+                                    <input matInput formControlName="surname">
+                                </mat-form-field>                     
+                            </div>                        
+                        </form>
+                    </div>
+                </div>                                
+            
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Претходно</button>
+                  <button mat-button color="primary" (click)="nextStep()">Следеће</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Врста ауторског дела
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Подаци о врсти ауторског дела                
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+            
+                <label><b>Изаберите врсту ауторског дела:</b></label>
+                <mat-radio-group class="work-type" (change)="onTypeChanged($event)">
+                    <mat-radio-button value="1" [checked]="true">Књижевно дело</mat-radio-button>
+                    <mat-radio-button value="2">Музичко дело</mat-radio-button>
+                    <mat-radio-button value="3">Ликовно дело</mat-radio-button>
+                    <mat-radio-button value="4">Рачунарски програм</mat-radio-button>
+                    <mat-radio-button value="5">Друго</mat-radio-button>
+                </mat-radio-group>
+            
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Претходно</button>
+                  <button mat-button color="primary" (click)="nextStep()">Следеће</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+            
+            <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Форма записа ауторског дела
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Подаци о форми записа ауторског дела                
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+            
+                <label><b>Изаберите форму записа ауторског дела:</b></label>
+                <mat-radio-group class="work-type" (change)="onFormaChanged($event)">
+                    <mat-radio-button value="1" [checked]="true">Штампани текст</mat-radio-button>
+                    <mat-radio-button value="2">Оптички диск</mat-radio-button>
+                    <mat-radio-button value="3">Писано</mat-radio-button>
+                    <mat-radio-button value="4">Осликано</mat-radio-button>
+                    <mat-radio-button value="5">Друго</mat-radio-button>
+                </mat-radio-group>
+            
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Претходно</button>
+                  <button mat-button color="primary" (click)="nextStep()">Следеће</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 7" (opened)="setStep(7)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Аутор
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Подаци о аутору дела
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                
+                <div [ngSwitch]="isPodnosilacAutor">
+                    <div *ngSwitchCase="true">
+                        <b>Подносилац је и аутор овог дела</b>
+                    </div>
+                    <div *ngSwitchCase="false">
+                        <label><b>Изаберите аутора дела:</b></label>
+                        <mat-radio-group (change)="onAutorTypeChanged($event)">
+                            <mat-radio-button value="1" [checked]="true">Аутор је жив</mat-radio-button>
+                            <mat-radio-button value="2">Аутор је преминуо</mat-radio-button>
+                            <mat-radio-button value="3">Аутор је анониман</mat-radio-button>                            
+                        </mat-radio-group>
+                        <div [ngSwitch]="selectedAutorType">
+                            <div *ngSwitchCase="1">
+                                <form [formGroup]="autorAliveForm">
+                                    <div class="form-column">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Име</mat-label>
+                                            <input matInput formControlName="name">
+                                        </mat-form-field>
+                
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Презиме</mat-label>
+                                            <input matInput formControlName="surname">
+                                        </mat-form-field>
+            
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Држављанство</mat-label>
+                                            <input matInput formControlName="citizenship">
+                                        </mat-form-field>                                        
+                                    </div>
+                                    <div class="form-column">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Улица</mat-label>
+                                            <input matInput formControlName="street">
+                                        </mat-form-field>
+                
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Број улице</mat-label>
+                                            <input matInput formControlName="streetNumber">
+                                        </mat-form-field>
+                
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Град</mat-label>
+                                            <input matInput formControlName="city">
+                                        </mat-form-field>
+                
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Поштански код</mat-label>
+                                            <input matInput formControlName="zipCode">
+                                        </mat-form-field>
+                                    </div>
+                                </form>
+                            </div>
+                            <div *ngSwitchCase="2">
+                                <form [formGroup]="autorDeadForm">
+                                    <div class="form-column">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Име</mat-label>
+                                            <input matInput formControlName="name">
+                                        </mat-form-field>
+                
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Презиме</mat-label>
+                                            <input matInput formControlName="surname">
+                                        </mat-form-field>                                                                                   
+                                    </div>
+                                    <div class="form-column">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Година смрти</mat-label>
+                                            <input matInput formControlName="deathYear">
+                                        </mat-form-field>
+                                    </div>
+                                </form>
+                            </div>
+                            <div *ngSwitchCase="3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Претходно</button>
+                  <button mat-button color="primary" (click)="nextStep()">Следеће</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 8" (opened)="setStep(8)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Радни однос
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Податак о радном односу
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                
+                <label><b>Да ли је ауторско дело створено у радном односу?</b></label>
+                <mat-radio-group (change)="onRadniOdnosChanged($event)">
+                    <mat-radio-button value="1" [checked]="true">Ауторско дело није створено у радном односу</mat-radio-button>
+                    <mat-radio-button value="2">Ауторско дело јесте створено у радном односу</mat-radio-button>
+                </mat-radio-group>
+                          
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Претходно</button>
+                  <button mat-button color="primary" (click)="nextStep()">Следеће</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 9" (opened)="setStep(9)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Начин коришћења
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Податак о начину коришћења
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                
+                <form [formGroup]="useCaseForm">
+                    <div class="form-column">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Начин коришћења</mat-label>
+                            <input matInput formControlName="useCase">
+                        </mat-form-field>    
+                    </div>
+                    <div class="form-column"></div>
+                </form>                
+                          
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Претходно</button>
+                  <button mat-button color="primary" (click)="nextStep()">Следеће</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 10" (opened)="setStep(10)" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Прилози
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Слање прилога
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div [ngSwitch]="selectedForma">
+                    <div *ngSwitchCase="2">
+                        <form [formGroup]="descriptionForm">
+                            <div class="form-column">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Опис прилога</mat-label>
+                                    <input matInput formControlName="description">
+                                </mat-form-field>    
+                            </div>
+                            <div class="form-column"></div>
+                        </form>
+                    </div>
+                    <div *ngSwitchDefault>
+                        <button mat-raised-button (click)="openFileInput()">Приложите датотеку</button>                
+                        <input #fileInput type="file" style="display: none" (change)="uploadFile()"/>
+                        <label class="file-name">{{fileName}}</label>
+                    </div>                              
+                </div>
+                                
+                          
+                <mat-action-row>
+                  <button mat-button color="warn" (click)="prevStep()">Претходно</button>
+                  <button mat-button color="primary" (click)="sendRequest()">Пошаљи захтев</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+
+        </mat-accordion>    
+    </div>
+</div>

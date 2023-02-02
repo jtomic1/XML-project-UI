@@ -10,11 +10,15 @@ import { MaterialModule } from './shared/material/material.module';
 import { StartpageModule } from './features/startpage/startpage.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/interceptor/TokenInterceptor';
+import { ZahtevAutorskaPravaModule } from './features/zahtev-autorska-prava/zahtev-autorska-prava.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    RouterModule,
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
@@ -22,7 +26,8 @@ import { TokenInterceptor } from './shared/interceptor/TokenInterceptor';
     SharedModule,
     BrowserAnimationsModule,
     MaterialModule,
-    StartpageModule,
+    ZahtevAutorskaPravaModule,
+    StartpageModule
   ],
   providers: [
     {
