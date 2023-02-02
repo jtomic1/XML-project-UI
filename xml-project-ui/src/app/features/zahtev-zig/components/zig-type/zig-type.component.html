@@ -1,0 +1,49 @@
+<form [formGroup]="form">
+    <label>Тип жига</label>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Тип жига</mat-label>
+            <select matNativeControl required formControlName="zigType">
+                <option value="volvo">Индивидуални жиг</option>
+                <option value="saab">Колективни жиг</option>
+                <option value="mercedes">Жиг гаранције</option>
+            </select>
+        </mat-form-field>
+    </div>
+    <label>Опис знака</label>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Опис знака</mat-label>
+            <select matNativeControl required formControlName="zigType">
+                <option value="volvo">вербални знак (знак у речи)</option>
+                <option value="saab">графички знак; боју, комбинацију боја</option>
+                <option value="mercedes">комбиновани знак</option>
+                <option value="audi">тродимензионални знак</option>
+                <option value="audi">другу врсту знака (навести коју) </option>
+            </select>
+        </mat-form-field>
+    </div>
+    <label>Боје знака</label>
+    <div>
+        <mat-form-field class="chip-list" appearance="fill">
+            <mat-label>Додај боје знака</mat-label>
+            <mat-chip-list #chipList1 aria-label="Боје">
+              <mat-chip *ngFor="let color of colors" (removed)="removeColor(color)">
+                {{color}}
+                <button class="remove-button" matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <input placeholder="Додај боју"
+                     [matChipInputFor]="chipList1"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="false"
+                     (matChipInputTokenEnd)="addColor($event)">
+            </mat-chip-list>
+        </mat-form-field>    
+    </div>
+    <label>Изглед знака</label>
+    <div>
+        <app-zig-image></app-zig-image>
+    </div>
+</form>

@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { MessageComponent } from './services/message-service/message.service';
 import { MaterialModule } from './material/material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
+import { PodaciInfoComponent } from './components/user-input/podaci-info/podaci-info.component';
+import { ContactInputComponent } from './components/user-input/contact-input/contact-input.component';
 
 @NgModule({
-  declarations: [MessageComponent, NavbarComponent],
+  declarations: [MessageComponent, NavbarComponent, PodaciInfoComponent, ContactInputComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -16,6 +18,10 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     RouterModule,
   ],
-  exports: [MaterialModule, NavbarComponent],
+  exports: [
+    MaterialModule,
+    ReactiveFormsModule,
+    NavbarComponent,
+    PodaciInfoComponent],
 })
 export class SharedModule {}
