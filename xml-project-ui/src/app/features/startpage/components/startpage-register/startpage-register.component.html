@@ -1,0 +1,130 @@
+<mat-card>
+  <mat-card-content>
+    <h2>Регистрација</h2>
+    <form [formGroup]="form">
+      <!-- E-mail -->
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="email"
+          placeholder="Е-маил"
+          name="email"
+          required
+        />
+      </mat-form-field>
+      <small class="text-danger" *ngIf="form.get('email')!.hasError('pattern')">
+        Неисправан формат!
+      </small>
+      <!-- ID -->
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="username"
+          placeholder="Корисничко име"
+          name="username"
+          required
+        />
+      </mat-form-field>
+      <span>
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="password"
+            type="password"
+            placeholder="Лозинка"
+            name="password"
+            required
+          />
+        </mat-form-field>
+        <small
+          class="text-danger"
+          *ngIf="form.get('password')!.hasError('minlength')"
+        >
+          Лозинка мора садржати минимално 8 карактера!
+        </small>
+        <small
+          class="text-danger"
+          *ngIf="form.get('password')!.hasError('maxlength')"
+        >
+          Лозинка мора садржати мање од 30 карактера!
+        </small>
+
+        <!-- Confirm Password -->
+        <mat-form-field>
+          <input
+            matInput
+            formControlName="confirmPassword"
+            type="password"
+            placeholder="Понови лозинку"
+            name="confirmPassword"
+            required
+          />
+        </mat-form-field>
+        <small
+          class="text-danger"
+          *ngIf="
+            form.hasError('matchingPasswordsError') &&
+            form.controls['confirmPassword'].value !== ''
+          "
+          >Лозинке се не подударају!</small
+        >
+      </span>
+      <!-- Name -->
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="name"
+          placeholder="Име"
+          name="name"
+          required
+        />
+      </mat-form-field>
+
+      <!-- Surname -->
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="surname"
+          placeholder="Презиме"
+          name="surname"
+          required
+        />
+      </mat-form-field>
+
+      <!-- ID -->
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="identificationNumber"
+          placeholder="ЈМБГ"
+          name="identificationNumber"
+          required
+        />
+      </mat-form-field>
+
+      <!-- Role -->
+      <label id="role-radio-group">Молимо Вас да одаберете Вашу улогу: </label>
+      <mat-radio-group class="role-radio-group" formControlName="role">
+        <mat-radio-button class="role-radio-button" value="citizen">
+          Грађанин
+        </mat-radio-button>
+        <mat-radio-button class="role-radio-button" value="official">
+          Службеник
+        </mat-radio-button>
+      </mat-radio-group>
+    </form>
+    <button
+      id="register-button"
+      mat-raised-button
+      color="primary"
+      type="button"
+      style="margin-top: 10px"
+      (click)="saveRequest()"
+    >
+      Региструј се!
+    </button>
+    <mat-divider inset></mat-divider>
+    <h4>Beћ поседујете налог?</h4>
+    <a [routerLink]="['/login']" href="javascript:void(0);"> Улогујте се!</a>
+  </mat-card-content>
+</mat-card>

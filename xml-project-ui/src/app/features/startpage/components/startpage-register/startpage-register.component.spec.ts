@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormTabsContainerComponent } from './form-tabs-container.component';
+import { StartpageRegisterComponent } from './startpage-register.component';
 
-describe('FormTabsContainerComponent', () => {
-  let component: FormTabsContainerComponent;
-  let fixture: ComponentFixture<FormTabsContainerComponent>;
+describe('StartpageRegisterComponent', () => {
+  let component: StartpageRegisterComponent;
+  let fixture: ComponentFixture<StartpageRegisterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormTabsContainerComponent ]
+      declarations: [ StartpageRegisterComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormTabsContainerComponent);
+    fixture = TestBed.createComponent(StartpageRegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

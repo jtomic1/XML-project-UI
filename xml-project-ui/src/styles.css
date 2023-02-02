@@ -24,3 +24,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: rgb(192, 126, 2) !important;
   color: white !important;
 }
+
+/****************************************/
+
+.main-container {
+  height: calc(100% - 64px);
+}
+
+.mat-card {
+  box-shadow: 10px #9b9b9b;
+}

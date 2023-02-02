@@ -1,3 +1,52 @@
 <mat-toolbar color="primary" class="flexExpand">
-  <span>еУправа</span>
+  <div>
+    <span style="margin-right: 10px">еУправа</span>
+    <span *ngIf="loggedService.isTokenPresent">
+      <button mat-button [matMenuTriggerFor]="patent">Сервис за патенте</button>
+      <mat-menu #patent="matMenu">
+        <button
+          *ngFor="let item of patentOptions"
+          mat-menu-item
+          [routerLink]="[item]"
+        >
+          {{ item.name }}
+        </button>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="zig">Сервис за жигове</button>
+      <mat-menu #zig="matMenu">
+        <button
+          *ngFor="let item of zigOptions"
+          mat-menu-item
+          [routerLink]="[item]"
+        >
+          {{ item.name }}
+        </button>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="autorska">
+        Сервис за ауторска права
+      </button>
+      <mat-menu #autorska="matMenu">
+        <button
+          *ngFor="let item of autorskaOptions"
+          mat-menu-item
+          [routerLink]="[item]"
+        >
+          {{ item.name }}
+        </button>
+      </mat-menu>
+    </span>
+  </div>
+  <div
+    *ngIf="loggedService.isTokenPresent"
+    (click)="logout()"
+    style="display: inline-block; margin-left: 1.6em"
+    class="logout"
+  >
+    Одјави се
+    <fa-icon
+      class="icon-button"
+      [icon]="logoutIcon"
+      style="margin-left: 6px"
+    ></fa-icon>
+  </div>
 </mat-toolbar>
