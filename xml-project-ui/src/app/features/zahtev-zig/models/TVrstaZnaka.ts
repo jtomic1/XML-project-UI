@@ -1,7 +1,7 @@
 export enum TVrstaZnaka {
-    VERBALNI="VERBALNI",
-    GRAFICKI="GRAFICKI",
-    KOMBINOVANI="KOMBINOVANI",
-    TRODIMENZIONALNI="TRODIMENZIONALNI",
-    DRUGO="DRUGO",
+    VERBALNI="verbalni",
+    GRAFICKI="graficki",
+    KOMBINOVANI="kombinovani",
+    TRODIMENZIONALNI="trodimenzionalni",
+    DRUGO="drugo",
 }

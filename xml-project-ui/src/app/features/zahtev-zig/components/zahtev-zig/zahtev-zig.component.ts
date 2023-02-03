@@ -129,7 +129,7 @@ export class ZahtevZigComponent implements OnInit {
       opis_ziga: opisZiga,
       brojevi_klasa_robe_usluga: brojeviKlasaRobeUsluga,
       zatrazeno_pravo_prvenstva: zatrazenoPravoPrvenstva,
-      broj_zahteva: "adnji_fandji"
+      broj_zahteva: "sretan_stokic"
     };
 
     this.zigService.save(test).subscribe({
@@ -145,8 +145,9 @@ export class ZahtevZigComponent implements OnInit {
         });
       },
       error: (err) => {
+        console.log(err);
         const parser = new xml2js.Parser({ strict: true, trim: true });
-        parser.parseString(err, (error, result) => {
+        parser.parseString(err.message, (error, result) => {
           console.log(error);
           console.log(result);
           this.messageService.showMessage(result, MessageType.ERROR);
