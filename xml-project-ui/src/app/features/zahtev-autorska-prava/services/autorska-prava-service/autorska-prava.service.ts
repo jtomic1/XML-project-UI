@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ObrazacA1 } from '../../model/ObrazacA1';
 import * as JsonToXML from "js2xmlparser";
 import { environment } from 'src/environments/environment';
+import { Zahtev } from '../../model/Zahtev';
 
 
 @Injectable({
@@ -12,10 +13,11 @@ export class AutorskaPravaService {
 
   constructor(private http: HttpClient) { }
 
-  save(ObrazacA1: ObrazacA1) {
+  //save(ObrazacA1: ObrazacA1) {
+  save(zahtev: Zahtev) {
     const headers = new HttpHeaders().set('Content-Type', 'application/xml');
     const url = `${environment.aServiceUrl}/save`;
-    const xml = JsonToXML.parse("obrazac_a_1", ObrazacA1);
+    const xml = JsonToXML.parse("obrazac", zahtev);
     console.log(xml);
     return this.http.post(url, xml, {headers: headers, responseType: 'text'});
   }
