@@ -12,6 +12,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/interceptor/TokenInterceptor';
 import { ZahtevAutorskaPravaModule } from './features/zahtev-autorska-prava/zahtev-autorska-prava.module';
 import { RouterModule } from '@angular/router';
+import { ZahtevZigModule } from './features/zahtev-zig/zahtev-zig.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,14 +29,17 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     MaterialModule,
     ZahtevAutorskaPravaModule,
-    StartpageModule
+    StartpageModule,
+    ZahtevZigModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
+      
     },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })
