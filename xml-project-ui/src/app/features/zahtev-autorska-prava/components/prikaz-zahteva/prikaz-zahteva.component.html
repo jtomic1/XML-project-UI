@@ -47,8 +47,8 @@
                   <button mat-raised-button color="primary" (click)="approve(item.broj_prijave)"><mat-icon>done</mat-icon>Прихвати</button>
                   <button mat-raised-button [matMenuTriggerFor]="aboveMenu1">Преузми документ</button>
                   <mat-menu #aboveMenu1="matMenu" yPosition="above">
-                    <button mat-menu-item>PDF формат</button>
-                    <button mat-menu-item>XHTML формат</button>
+                    <button mat-menu-item (click)="getPdf(item.broj_prijave)">PDF формат</button>
+                    <button mat-menu-item (click)="getXhtml(item.broj_prijave)">XHTML формат</button>
                   </mat-menu>
                   <button mat-raised-button [matMenuTriggerFor]="aboveMenu2">Преузми метаподатке</button>
                   <mat-menu #aboveMenu2="matMenu" yPosition="above">

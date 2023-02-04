@@ -77,10 +77,26 @@ export class AutorskaPravaService {
   }
 
   getRdf(id: string) {
-    const url =  `${environment.aServiceUrl}/getRdf`;
+    const url = `${environment.aServiceUrl}/getRdf`;
     return this.http.get(url, {
       params : {id: id},
       headers : new HttpHeaders().set('Content-Type', 'application/xml'),
+      responseType: 'blob'
+    });
+  }
+
+  getPdf(id: string) {
+    const url = `${environment.aServiceUrl}/getPdf`;
+    return this.http.get(url, {
+      params: {id: id},
+      responseType: 'blob'
+    });
+  }
+
+  getXhtml(id: string) {
+    const url = `${environment.aServiceUrl}/getXhtml`;
+    return this.http.get(url, {
+      params: {id: id},
       responseType: 'blob'
     });
   }
