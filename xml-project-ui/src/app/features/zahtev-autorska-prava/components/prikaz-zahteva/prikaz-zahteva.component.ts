@@ -108,6 +108,24 @@ export class PrikazZahtevaComponent implements OnInit {
     });
   }
 
+  getJson(id: string) {
+    this.autorskaPravaService.getJson(id).subscribe(data => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(data);
+      a.download = id + '.json';
+      a.click();
+    });
+  }
+
+  getRdf(id: string) {
+    this.autorskaPravaService.getRdf(id).subscribe(data => {      
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(data);
+      a.download = id + '.rdf';
+      a.click();
+    })
+  }
+
   getPodnosilac(id: number): string {
     var podnosilac: any = this.zahtevi[id].podnosilac;
     if (podnosilac.ime !== undefined) {
