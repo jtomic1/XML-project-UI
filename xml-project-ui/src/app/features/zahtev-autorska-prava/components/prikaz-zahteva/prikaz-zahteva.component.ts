@@ -80,8 +80,8 @@ export class PrikazZahtevaComponent implements OnInit {
     var datum: string = date.getDate() + '.' + (date.getMonth()+1) + '.' + date.getFullYear() + '.'; 
     var resenje: Resenje = {
       id: id,
-      ime: this.loginService.user?.name,
-      prezime: this.loginService.user?.surname,
+      ime: '', //this.loginService.user?.name,
+      prezime: '', // this.loginService.user?.surname,
       obrazlozenje: '',
       status: 'APPROVED',
       datum: datum

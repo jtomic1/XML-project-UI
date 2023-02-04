@@ -44,8 +44,8 @@ export class DenyDialogComponent implements OnInit {
       var datum: string = date.getDate() + '.' + (date.getMonth()+1) + '.' + date.getFullYear() + '.';
       var resenje: Resenje = {
         id: this.data.id,
-        ime: this.loginService.user?.name,
-        prezime: this.loginService.user?.surname,
+        ime: '', //this.loginService.user?.name,
+        prezime: '', //this.loginService.user?.surname,
         status: 'DENIED',
         datum: datum,
         obrazlozenje: this.form.controls['reason'].value
