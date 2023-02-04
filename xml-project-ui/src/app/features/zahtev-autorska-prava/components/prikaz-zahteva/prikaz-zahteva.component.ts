@@ -5,6 +5,10 @@ import * as xml2js from 'xml2js';
 import { AutorskaPravaFactoryService } from '../../services/autorska-prava-factory/autorska-prava-factory.service';
 import { Podnosilac } from '../../model/Podnosilac';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MessageService, MessageType } from 'src/app/shared/services/message-service/message.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DenyDialogComponent } from '../dialogs/deny-dialog/deny-dialog.component';
+import { Resenje } from '../../model/Resenje';
 
 @Component({
   selector: 'app-prikaz-zahteva',
@@ -19,7 +23,9 @@ export class PrikazZahtevaComponent implements OnInit {
   showCancelSearch: boolean = false;
 
   constructor(private autorskaPravaService: AutorskaPravaService,
-              private factory: AutorskaPravaFactoryService) { }
+              private factory: AutorskaPravaFactoryService,
+              private messageService: MessageService,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {    
      this.getAllPending();
@@ -64,8 +70,40 @@ export class PrikazZahtevaComponent implements OnInit {
             }
           }          
         });
+    });    
+  }
+
+  approve(id: string) {
+    var date = new Date(); 
+    var datum: string = date.getDate() + '.' + (date.getMonth()+1) + '.' + date.getFullYear() + '.'; 
+    var resenje: Resenje = {
+      id: id,
+      ime: '',
+      prezime: '',
+      obrazlozenje: '',
+      status: 'APPROVED',
+      datum: datum
+    };
+    this.autorskaPravaService.approve(resenje).subscribe((res: any) => {
+      this.messageService.showMessage('Захтев са бројем ' + id + ' је одобрен', MessageType.SUCCESS);
+      this.getAllPending();
     });
-    
+  }
+
+  deny(id: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = false;
+    dialogConfig.restoreFocus = false;
+    dialogConfig.data = {id: id};
+    dialogConfig.width = '500px';
+    dialogConfig.height = '250px';
+
+    const dialogRef = this.dialog.open(DenyDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {      
+      if (result === true) {
+        this.getAllPending();
+      }
+    });
   }
 
   getPodnosilac(id: number): string {
