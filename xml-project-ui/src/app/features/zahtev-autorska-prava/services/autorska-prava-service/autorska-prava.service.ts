@@ -66,4 +66,22 @@ export class AutorskaPravaService {
       responseType: 'text'
     });
   }
+
+  getJson(id: string) {
+    const url =  `${environment.aServiceUrl}/getJson`;
+    return this.http.get(url, {
+      params : {id: id},
+      headers : new HttpHeaders().set('Content-Type', 'application/json'),
+      responseType: 'blob'
+    });
+  }
+
+  getRdf(id: string) {
+    const url =  `${environment.aServiceUrl}/getRdf`;
+    return this.http.get(url, {
+      params : {id: id},
+      headers : new HttpHeaders().set('Content-Type', 'application/xml'),
+      responseType: 'blob'
+    });
+  }
 }

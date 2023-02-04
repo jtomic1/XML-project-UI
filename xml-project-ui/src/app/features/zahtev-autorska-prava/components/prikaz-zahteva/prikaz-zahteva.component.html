@@ -52,8 +52,8 @@
                   </mat-menu>
                   <button mat-raised-button [matMenuTriggerFor]="aboveMenu2">Преузми метаподатке</button>
                   <mat-menu #aboveMenu2="matMenu" yPosition="above">
-                    <button mat-menu-item>RDF формат</button>
-                    <button mat-menu-item>JSON формат</button>
+                    <button mat-menu-item (click)="getRdf(item.broj_prijave)">RDF формат</button>
+                    <button mat-menu-item (click)="getJson(item.broj_prijave)">JSON формат</button>
                   </mat-menu>
                 </mat-card-actions>
               </mat-card>
