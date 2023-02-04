@@ -11,12 +11,14 @@ import { TTipZiga } from '../../models/TTipZiga';
 import { TVrstaZnaka } from '../../models/TVrstaZnaka';
 import { ZatrazenoPravoPrvenstva } from '../../models/ZatrazenoPravoPrvenstva';
 import { Znak } from '../../models/Znak';
+import { BojeZnaka } from '../../models/BojeZnaka';
 import * as JsonToXML from "js2xmlparser";
 import { ZahtevZaPriznanjeZiga } from '../../models/ZahtevZaPriznanjeZiga';
 import { DatePipe } from '@angular/common';
 import { ZigService } from '../../services/zig-service/zig.service';
 import * as xml2js from 'xml2js';
 import { MessageService, MessageType } from 'src/app/shared/services/message-service/message.service';
+import { HelpService } from '../../services/help-service/help.service';
 
 @Component({
   selector: 'app-zahtev-zig',
@@ -26,29 +28,34 @@ import { MessageService, MessageType } from 'src/app/shared/services/message-ser
 export class ZahtevZigComponent implements OnInit {
 
   form: FormGroup = this.createFormGroup();
+
   constructor(
     public datepipe: DatePipe,
     private zigService: ZigService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private helpService:HelpService
   ) { }
 
   ngOnInit(): void {
     this.testXML();
   }
-  
 
-  createFormGroup(){
-    return new FormGroup({
-      name:new FormControl(''),
-      lastName: new FormControl(''),
-      city: new FormControl(''),
-      street: new FormControl(''),
-      postalCode: new FormControl(''),
-      country: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl(''),
-      fax:new FormControl(''),
-    });
+  contractor: FormControl = new FormControl(true);
+  showContractor:boolean = false;
+  
+  typeChanged(){
+  
+    this.showContractor =  this.contractor.value;
+    console.log( typeof(this.showContractor) );
+  }
+
+
+  getFormGroup(name: string):FormGroup{
+    return this.form.get(name) as FormGroup;
+  }
+
+  createFormGroup():FormGroup{
+    return this.helpService.createZahtevFormGroup();
   }
 
   testXML(){
@@ -80,12 +87,16 @@ export class ZahtevZigComponent implements OnInit {
       kontakt: kontakt
     };
 
+    let boje : BojeZnaka = {
+      boja :["21esa","dsadas"]
+    }
+
     let znak :Znak = {
       transliteracija: "blabla",
       prevod: "blabla",
       izgled_znaka: "undefined",
       vrsta_znaka: TVrstaZnaka.VERBALNI,
-      boje_znaka: [],
+      boje_znaka: boje  ,
       opis_znaka: "undefined"
     }
     
@@ -157,4 +168,29 @@ export class ZahtevZigComponent implements OnInit {
 
   }
 
+  sendRequestForZig(){
+    let zigZahtev = this.helpService.getZahtevFromFormGroup(this.form);
+    this.zigService.save(zigZahtev).subscribe({
+      next: (res) => {
+        console.log(res);
+        const parser = new xml2js.Parser({
+          strict: true,
+          trim: true,
+          explicitArray: false,
+        });
+        parser.parseString(res, (error, result) => {
+          this.messageService.showMessage(res , MessageType.SUCCESS);
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        const parser = new xml2js.Parser({ strict: true, trim: true });
+        parser.parseString(err.message, (error, result) => {
+          console.log(error);
+          console.log(result);
+          this.messageService.showMessage(result, MessageType.ERROR);
+        });
+      },
+    });;
+  }
 }
