@@ -73,10 +73,12 @@ export class StartpageRegisterComponent implements OnInit {
             this.router.navigate(['/login']);
           },
           error: (err) => {
-            const parser = new xml2js.Parser({ strict: true, trim: true });
+            const parser = new xml2js.Parser({
+              strict: true,
+              trim: true,
+              explicitArray: false,
+            });
             parser.parseString(err.error, (error, result) => {
-              console.log(error);
-              console.log(result);
               this.messageService.showMessage(result.error, MessageType.ERROR);
             });
           },
