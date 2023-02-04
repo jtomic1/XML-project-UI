@@ -4,13 +4,15 @@ import { StartpageLoginComponent } from './features/startpage/components/startpa
 import { StartpageRegisterComponent } from './features/startpage/components/startpage-register/startpage-register.component';
 import { PrikazZahtevaComponent } from './features/zahtev-autorska-prava/components/prikaz-zahteva/prikaz-zahteva.component';
 import { ZahtevAutorskaPravaComponent } from './features/zahtev-autorska-prava/components/zahtev-autorska-prava/zahtev-autorska-prava.component';
+import { ZahtevPatentComponent } from './features/zahtev-patent/components/zahtev-patent/zahtev-patent.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: StartpageLoginComponent },
   { path: 'register', component: StartpageRegisterComponent },
-  { path: 'a', component: ZahtevAutorskaPravaComponent},
+  { path: 'a', component: ZahtevAutorskaPravaComponent },
   { path: 'requests', component: PrikazZahtevaComponent },
+  { path: 'patentRequest', component: ZahtevPatentComponent },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 

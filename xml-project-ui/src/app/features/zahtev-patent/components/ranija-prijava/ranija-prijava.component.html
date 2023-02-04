@@ -1,0 +1,34 @@
+<form [formGroup]="form">
+  <h1>Ранија пријава</h1>
+  <mat-divider inset></mat-divider>
+  <mat-form-field>
+    <mat-label>Датум подношења раније пријаве</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [max]="maxDate"
+      formControlName="datumPodnosenja"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Број раније пријаве</mat-label>
+    <input matInput formControlName="brojPrijave" />
+    <mat-error *ngIf="form.get('brojPrijave')!.hasError('pattern')">
+      Број основне пријаве је у формату "PXXXX"
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label
+      >Двословна ознака државе, регионалне или међународне
+      организације</mat-label
+    >
+    <input matInput formControlName="dvoslovnaOznaka" />
+    <mat-error *ngIf="form.get('dvoslovnaOznaka')!.hasError('pattern')">
+      Неисправан формат двословне ознаке!
+    </mat-error>
+  </mat-form-field>
+</form>

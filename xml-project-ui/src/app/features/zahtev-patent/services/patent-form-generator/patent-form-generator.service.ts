@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -9,15 +17,15 @@ export class PatentFormGeneratorService {
 
   createPatentForm(): FormGroup {
     return new FormGroup({
+      sender: new FormControl(''),
       nazivPronalaska: new FormGroup({
         nazivSrpski: new FormControl('', Validators.required),
         nazivEngleski: new FormControl('', Validators.required),
       }),
       podnosilacPrijave: new FormGroup({
-        tipPodnosioca: new FormControl('', Validators.required),
+        tipPodnosioca: new FormControl('fizicko-lice', Validators.required),
         fizickoLice: this.createFizickoLiceForm(true),
         poslovnoIme: new FormControl('', [
-          Validators.required,
           Validators.pattern('^[A-ZŽŠĆĐČАБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ ]*$'),
         ]),
         lokacija: this.createAdresaForm(true),
@@ -32,31 +40,43 @@ export class PatentFormGeneratorService {
           kontakt: this.createKontaktForm(true),
         }),
       }),
-      punomocnik: new FormGroup({
-        funkcija: new FormGroup({
-          punomocnikZastupanje: new FormControl(false, Validators.required),
-          punomocnikPrijemPismena: new FormControl(false, Validators.required),
-          zajednickiPredstavnik: new FormControl(false, Validators.required),
-        }),
-        fizickoLice: this.createFizickoLiceForm(true),
-        poslovnoIme: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^[A-ZŽŠĆĐČАБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ ]*$'),
-        ]),
-        adresa: this.createAdresaForm(false),
-        kontakt: this.createKontaktForm(false),
-      }),
+      punomocnik: new FormGroup(
+        {
+          punomocnikSeNavodi: new FormControl(false, Validators.required),
+          funkcija: new FormGroup({
+            punomocnikZastupanje: new FormControl(false, Validators.required),
+            punomocnikPrijemPismena: new FormControl(
+              false,
+              Validators.required
+            ),
+            zajednickiPredstavnik: new FormControl(false, Validators.required),
+          }),
+          tipPodnosioca: new FormControl('fizicko-lice', Validators.required),
+          fizickoLice: this.createFizickoLiceForm(false),
+          poslovnoIme: new FormControl('', [
+            Validators.pattern('^[A-ZŽŠĆĐČАБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ ]*$'),
+          ]),
+          lokacija: this.createAdresaForm(false),
+          kontakt: this.createKontaktForm(false),
+        },
+        { validators: this.punomocnikValidator }
+      ),
       adresaZaDostavljanje: this.createAdresaForm(false),
-      nacinDostavljanja: new FormGroup({
-        elektronski: new FormControl(false, Validators.required),
-        papirno: new FormControl(false, Validators.required),
-      }),
+      nacinDostavljanja: new FormGroup(
+        {
+          elektronski: new FormControl(false, Validators.required),
+          papirno: new FormControl(false, Validators.required),
+        },
+        {
+          validators: this.deliveryValidator,
+        }
+      ),
       dopuna: new FormGroup({
         dopunskaPrijava: new FormControl(false, Validators.required),
         izdvojenaPrijava: new FormControl(false, Validators.required),
         brojOsnovnePrijave: new FormControl('', [
           Validators.required,
-          Validators.pattern('^[П][0-9]+$'),
+          Validators.pattern('^[P][0-9]+$'),
         ]),
         datumOsnovnePrijave: new FormControl('', Validators.required),
       }),
@@ -96,7 +116,7 @@ export class PatentFormGeneratorService {
     let ret = new FormGroup({
       brojTelefona: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[0-9]{9, 12}$'),
+        Validators.pattern('^[0-9]{9,12}$'),
       ]),
       email: new FormControl('', [
         Validators.required,
@@ -108,7 +128,7 @@ export class PatentFormGeneratorService {
         'brojFaksa',
         new FormControl('', [
           Validators.required,
-          Validators.pattern('^[0-9]{9, 12}$'),
+          Validators.pattern('^[0-9]{9,12}$'),
         ])
       );
     return ret;
@@ -119,7 +139,7 @@ export class PatentFormGeneratorService {
       datumPodnosenja: new FormControl('', Validators.required),
       brojPrijave: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[П][0-9]+$'),
+        Validators.pattern('^[P][0-9]+$'),
       ]),
       dvoslovnaOznaka: new FormControl('', [
         Validators.required,
@@ -129,4 +149,32 @@ export class PatentFormGeneratorService {
       ]),
     });
   }
+
+  deliveryValidator: ValidatorFn = (
+    form: AbstractControl
+  ): ValidationErrors | null => {
+    let group = form as FormGroup;
+    if (
+      group.controls['elektronski'].value === false &&
+      group.controls['papirno'].value === false
+    )
+      return { oneRequiredError: 'One control is required to be true!' };
+    return null;
+  };
+
+  punomocnikValidator: ValidatorFn = (
+    form: AbstractControl
+  ): ValidationErrors | null => {
+    let group = form as FormGroup;
+
+    if (
+      group.get('funkcija.punomocnikZastupanje')!.value === false &&
+      group.get('funkcija.punomocnikPrijemPismena')!.value === false &&
+      group.get('funkcija.zajednickiPredstavnik')!.value === false &&
+      group.get('punomocnikSeNavodi')!.value
+    ) {
+      return { oneRequiredError: 'One control is required to be true!' };
+    }
+    return null;
+  };
 }

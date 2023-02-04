@@ -1,0 +1,29 @@
+<form [formGroup]="form">
+  <mat-form-field *ngIf="form.contains('drzava') && showDrzava">
+    <mat-label>Држава</mat-label>
+    <input matInput formControlName="drzava" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Место</mat-label>
+    <input matInput formControlName="mesto" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Поштански број</mat-label>
+    <input matInput formControlName="postanskiBroj" />
+    <mat-error *ngIf="form.controls['postanskiBroj'].hasError('pattern')"
+      >Неисправан формат поштанског броја</mat-error
+    >
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Улица</mat-label>
+    <input matInput formControlName="ulica" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Број</mat-label>
+    <input matInput formControlName="broj" />
+  </mat-form-field>
+</form>

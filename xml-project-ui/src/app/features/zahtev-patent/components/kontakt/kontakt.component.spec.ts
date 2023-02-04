@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PodnosilacPrijaveComponent } from './podnosilac-prijave.component';
+import { KontaktComponent } from './kontakt.component';
 
-describe('PodnosilacPrijaveComponent', () => {
-  let component: PodnosilacPrijaveComponent;
-  let fixture: ComponentFixture<PodnosilacPrijaveComponent>;
+describe('KontaktComponent', () => {
+  let component: KontaktComponent;
+  let fixture: ComponentFixture<KontaktComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PodnosilacPrijaveComponent ]
+      declarations: [ KontaktComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PodnosilacPrijaveComponent);
+    fixture = TestBed.createComponent(KontaktComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

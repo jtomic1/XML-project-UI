@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Е-маил адреса</mat-label>
+    <input matInput formControlName="email" />
+    <mat-error *ngIf="form.controls['email'].hasError('pattern')">
+      Неисправан формат е-маил адресе!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Број телефона</mat-label>
+    <input matInput formControlName="brojTelefona" />
+    <mat-error *ngIf="form.controls['brojTelefona'].hasError('pattern')">
+      Неисправан формат телефона!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="form.contains('brojFaksa') && showFaks">
+    <mat-label>Број факса</mat-label>
+    <input matInput formControlName="brojFaksa" />
+    <mat-error *ngIf="form.controls['brojFaksa'].hasError('pattern')">
+      Неисправан формат факса!
+    </mat-error>
+  </mat-form-field>
+</form>

@@ -12,6 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/interceptor/TokenInterceptor';
 import { ZahtevAutorskaPravaModule } from './features/zahtev-autorska-prava/zahtev-autorska-prava.module';
 import { RouterModule } from '@angular/router';
+import { ZahtevPatentModule } from './features/zahtev-patent/zahtev-patent.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,8 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     MaterialModule,
     ZahtevAutorskaPravaModule,
-    StartpageModule
+    ZahtevPatentModule,
+    StartpageModule,
   ],
   providers: [
     {

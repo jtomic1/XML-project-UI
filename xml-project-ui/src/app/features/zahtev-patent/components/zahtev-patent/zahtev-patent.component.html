@@ -1,7 +1,8 @@
 <form [formGroup]="form">
   <mat-card>
-    <mat-stepper color="primary" orientation="vertical">
-      <mat-step>
+    <mat-stepper color="primary" orientation="vertical" [linear]="false">
+      <!-- Naziv -->
+      <mat-step [stepControl]="getFormGroup('nazivPronalaska')">
         <ng-template matStepLabel>Назив проналаска</ng-template>
         <ng-template matStepContent>
           <app-naziv-pronalaska
@@ -10,12 +11,255 @@
         </ng-template>
       </mat-step>
 
-      <mat-step>
+      <!-- Podnosilac -->
+      <mat-step [stepControl]="getFormGroup('podnosilacPrijave')">
         <ng-template matStepLabel>Подносилац пријаве</ng-template>
         <ng-template matStepContent>
-          <app-podnosilac-prijave></app-podnosilac-prijave>
+          <app-fizicko-lice
+            [showDrzava]="true"
+            [showFaks]="true"
+            [showDrzavljanstvo]="true"
+            [showFizickoLice]="false"
+            [form]="getFormGroup('podnosilacPrijave')"
+          ></app-fizicko-lice>
+          <mat-divider inset></mat-divider>
+          <h1>Подносилац - проналазач</h1>
+          <mat-divider inset></mat-divider>
+          <span [formGroup]="getFormGroup('podnosilacPrijave')">
+            <mat-checkbox formControlName="podnosilacPronalazac"
+              >Подносилац је и проналазач</mat-checkbox
+            >
+          </span>
+        </ng-template>
+      </mat-step>
+
+      <!-- Pronalazac -->
+      <mat-step
+        *ngIf="!form.get('podnosilacPrijave.podnosilacPronalazac')!.value"
+        [stepControl]="getFormGroup('podaciOPronalazacu')"
+      >
+        <ng-template matStepLabel>Проналазач</ng-template>
+        <ng-template matStepContent>
+          <h1>Проналазач</h1>
+          <mat-divider inset></mat-divider>
+          <!-- <span [formGroup]="getFormGroup('podaciOPronalazacu')">
+            <mat-checkbox formControlName="pronalazacNaveden"
+              >Проналазач жели да буде наведен</mat-checkbox
+            >
+          </span>
+          <div *ngIf="form.get('podaciOPronalazacu.pronalazacNaveden')!.value">
+            <mat-divider inset></mat-divider>
+            <app-fizicko-lice
+              [showDrzava]="true"
+              [showFaks]="true"
+              [showDrzavljanstvo]="false"
+              [showFizickoLice]="true"
+              [form]="getFormGroup('podaciOPronalazacu.pronalazac')"
+            ></app-fizicko-lice>
+          </div> -->
+          <app-xonomy-editor></app-xonomy-editor>
+          <p>
+            <span style="font-weight: bold">Напомена: </span>да бисте прошли
+            даље, морате да валидирате унете податке!
+          </p>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="validatePronalazac()"
+          >
+            Валидирај!
+          </button>
+        </ng-template>
+      </mat-step>
+
+      <!-- Punomocnik -->
+      <mat-step [stepControl]="getFormGroup('punomocnik')">
+        <ng-template matStepLabel>Пуномоћник</ng-template>
+        <ng-template matStepContent>
+          <h1>Пуномоћник</h1>
+          <mat-divider inset></mat-divider>
+          <div [formGroup]="getFormGroup('punomocnik')">
+            <mat-checkbox
+              style="display: block"
+              formControlName="punomocnikSeNavodi"
+              >Пуномоћник се наводи</mat-checkbox
+            >
+          </div>
+          <div *ngIf="form.get('punomocnik.punomocnikSeNavodi')!.value">
+            <div [formGroup]="getFormGroup('punomocnik.funkcija')">
+              <mat-divider inset></mat-divider>
+              <h1>Улога</h1>
+              <mat-divider inset></mat-divider>
+              <mat-checkbox
+                formControlName="punomocnikZastupanje"
+                style="display: block"
+                >Пуномоћник за заступање</mat-checkbox
+              >
+              <mat-checkbox
+                formControlName="punomocnikPrijemPismena"
+                style="display: block"
+                >Пуномоћник за пријем писмена</mat-checkbox
+              >
+              <mat-checkbox
+                formControlName="zajednickiPredstavnik"
+                style="display: block"
+              >
+                Заједнички представник</mat-checkbox
+              >
+              <br />
+              <mat-error
+                *ngIf="form.get('punomocnik')!.hasError('oneRequiredError')"
+              >
+                Морате одабрати једну опцију!
+              </mat-error>
+              <mat-divider inset></mat-divider>
+            </div>
+            <app-fizicko-lice
+              [showDrzavljanstvo]="false"
+              [showDrzava]="false"
+              [showFaks]="false"
+              [showFizickoLice]="false"
+              [form]="getFormGroup('punomocnik')"
+            ></app-fizicko-lice>
+          </div>
+        </ng-template>
+      </mat-step>
+
+      <!-- Adresa za dostavljanje -->
+      <mat-step [stepControl]="getFormGroup('adresaZaDostavljanje')">
+        <ng-template matStepLabel>Адреса за достављање</ng-template>
+        <ng-template matStepContent>
+          <h1></h1>
+          <mat-divider inset></mat-divider>
+          <app-adresa
+            [clearValidators]="true"
+            [showDrzava]="false"
+            [form]="getFormGroup('adresaZaDostavljanje')"
+          ></app-adresa>
+        </ng-template>
+      </mat-step>
+
+      <!-- Nacin dostavljanja -->
+      <mat-step [stepControl]="getFormGroup('nacinDostavljanja')">
+        <ng-template matStepLabel>Начин достављања</ng-template>
+        <ng-template matStepContent>
+          <h1>Начин достављања</h1>
+          <mat-divider inset></mat-divider>
+          <div [formGroup]="getFormGroup('nacinDostavljanja')">
+            <mat-checkbox formControlName="papirno" style="display: block"
+              >Папирно</mat-checkbox
+            >
+            <mat-checkbox formControlName="elektronski" style="display: block"
+              >Електронски</mat-checkbox
+            >
+            <br />
+            <mat-error
+              *ngIf="
+                form.controls['nacinDostavljanja'].hasError('oneRequiredError')
+              "
+              >Морате одабрати једну опцију!
+            </mat-error>
+          </div>
+        </ng-template>
+      </mat-step>
+
+      <!-- Dopunska/Izdvojena prijava -->
+      <mat-step [stepControl]="getFormGroup('dopuna')">
+        <ng-template matStepLabel>Допунска/издвојена пријава</ng-template>
+        <ng-template matStepContent>
+          <h1>Врста допунске пријаве</h1>
+          <mat-divider inset></mat-divider>
+          <div [formGroup]="getFormGroup('dopuna')">
+            <mat-checkbox
+              formControlName="dopunskaPrijava"
+              style="display: block"
+              >Допунска пријава</mat-checkbox
+            >
+            <mat-checkbox
+              formControlName="izdvojenaPrijava"
+              style="display: block"
+              >Издвојена пријава</mat-checkbox
+            >
+            <br />
+            <div
+              *ngIf="
+                form.get('dopuna.dopunskaPrijava')!.value === true ||
+                form.get('dopuna.izdvojenaPrijava')!.value === true
+              "
+            >
+              <mat-form-field>
+                <mat-label>Број првобитне пријаве</mat-label>
+                <input matInput formControlName="brojOsnovnePrijave" />
+                <mat-error
+                  *ngIf="
+                    form.get('dopuna.brojOsnovnePrijave')!.hasError('pattern')
+                  "
+                >
+                  Број основне пријаве је у формату "PXXXX"
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Датум подношења основне пријаве</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  [max]="maxDate"
+                  formControlName="datumOsnovnePrijave"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-template>
+      </mat-step>
+
+      <!-- Ranije prijave -->
+      <mat-step [stepControl]="getFormArray('priznanjePravaPrvenstva')">
+        <ng-template matStepLabel
+          >Захтев за признање права првенства из ранијих пријава</ng-template
+        >
+        <ng-template matStepContent>
+          <h1>Списак ранијих пријава</h1>
+          <mat-divider inset></mat-divider>
+          <app-ranija-prijava-array
+            [formArray]="getFormArray('priznanjePravaPrvenstva')"
+          >
+          </app-ranija-prijava-array>
+        </ng-template>
+      </mat-step>
+
+      <!-- Podnošenje zahteva -->
+      <mat-step>
+        <ng-template matStepLabel> Подношење захтева </ng-template>
+        <ng-template matStepContent>
+          <h1>Подношење захтева</h1>
+          <mat-divider inset></mat-divider>
+          <p style="margin-bottom: 16px">
+            <span style="font-weight: bold">Напомена:&nbsp;</span>Захтев је
+            могуће поднети само ако је форма исправно попуњена!
+          </p>
+          <button
+            [disabled]="form.invalid"
+            (click)="sendPatentRequest()"
+            mat-raised-button
+            color="primary"
+            style="
+              width: 100%;
+              text-align: center;
+              height: 80px;
+              font-size: 1.6em;
+            "
+          >
+            Поднеси захтев
+          </button>
         </ng-template>
       </mat-step>
     </mat-stepper>
   </mat-card>
+  <!-- <pre>{{ form.getRawValue() | json }}</pre> -->
 </form>

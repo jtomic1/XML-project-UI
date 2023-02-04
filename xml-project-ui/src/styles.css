@@ -34,3 +34,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-card {
   box-shadow: 10px #9b9b9b;
 }
+
+.mat-divider {
+  margin-top: 10px !important;
+  margin-bottom: 30px !important;
+}

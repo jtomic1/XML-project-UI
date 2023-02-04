@@ -1,0 +1,71 @@
+<form [formGroup]="form">
+  <h1>Назив</h1>
+  <mat-divider inset></mat-divider>
+  <mat-form-field *ngIf="form.contains('tipPodnosioca')">
+    <mat-label>Врста подносиоца</mat-label>
+    <mat-select name="personType" formControlName="tipPodnosioca">
+      <mat-option value="fizicko-lice"> Физичко лице </mat-option>
+      <mat-option value="poslovni-subjekat"> Пословни субјекат </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <span
+    formGroupName="fizickoLice"
+    *ngIf="
+      (form.contains('tipPodnosioca') &&
+        form.controls['tipPodnosioca'].value === 'fizicko-lice') ||
+      showFizickoLice
+    "
+  >
+    <mat-form-field>
+      <mat-label>Име</mat-label>
+      <input matInput formControlName="ime" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Презиме</mat-label>
+      <input matInput formControlName="prezime" />
+      <mat-error *ngIf="form.get('fizickoLice.prezime')!.hasError('pattern')"
+        >Презиме мора бити унето великим словима!</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field *ngIf="showDrzavljanstvo">
+      <mat-label>Држављанство</mat-label>
+      <input matInput formControlName="drzavljanstvo" />
+    </mat-form-field>
+  </span>
+
+  <span
+    *ngIf="
+      !showFizickoLice &&
+      form.controls['tipPodnosioca'].value === 'poslovni-subjekat'
+    "
+  >
+    <mat-form-field>
+      <mat-label>Пословно име</mat-label>
+      <input matInput formControlName="poslovnoIme" />
+      <mat-error *ngIf="form.get('poslovnoIme')!.hasError('pattern')"
+        >Пословно име мора бити унето великим словима!</mat-error
+      >
+    </mat-form-field>
+  </span>
+
+  <mat-divider inset></mat-divider>
+
+  <h1>Пребивалиште</h1>
+  <mat-divider inset></mat-divider>
+  <app-adresa
+    [form]="getFormGroup('lokacija')"
+    [showDrzava]="showDrzava"
+  ></app-adresa>
+
+  <mat-divider inset></mat-divider>
+
+  <h1>Контакт подаци</h1>
+  <mat-divider inset></mat-divider>
+  <app-kontakt
+    [form]="getFormGroup('kontakt')"
+    [showFaks]="showFaks"
+  ></app-kontakt>
+</form>
