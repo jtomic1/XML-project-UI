@@ -1,0 +1,38 @@
+<form [formGroup]="getFormGroup('adresa')">
+    <label>Adresa: </label>
+    <div >
+        <mat-form-field appearance="fill">
+            <mat-label>Ulica</mat-label>
+            <input matInput formControlName="ulica">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Poštanski broj</mat-label>
+            <input matInput formControlName= "postanski_broj">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Grad</mat-label>
+            <input matInput formControlName="mesto">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Država</mat-label>
+            <input matInput formControlName="drzava">
+        </mat-form-field>
+    </div>
+</form>
+<form [formGroup]="getFormGroup('kontakt')">
+    <label>Kontakt: </label>
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Telefon</mat-label>
+            <input matInput formControlName= "telefon">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Fax</mat-label>
+            <input matInput formControlName="fax">
+        </mat-form-field>
+    </div>
+</form>

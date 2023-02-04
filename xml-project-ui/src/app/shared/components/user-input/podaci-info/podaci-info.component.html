@@ -1,0 +1,32 @@
+<form [formGroup]="form">
+    <div>
+      <mat-radio-group [formControl]="individual" (change)="typeChanged()">
+        <mat-radio-button value="true" [checked]="true">Fizičko lice</mat-radio-button>
+        <mat-radio-button value="">Pravno lice</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div *ngIf="showForIndividual">
+        
+      <mat-form-field appearance="fill" >
+        <mat-label>Ime</mat-label>
+        <input matInput formControlName="ime">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Prezime</mat-label>
+        <input matInput formControlName="prezime">
+      </mat-form-field>
+      
+    </div>
+    <div *ngIf="!showForIndividual">
+        
+      <mat-form-field appearance="fill" >
+        <mat-label>Poslovno ime</mat-label>
+        <input matInput formControlName="naziv">
+      </mat-form-field>
+      
+    </div>
+    <div>
+      <app-contact-input [form]="form"></app-contact-input>
+    </div>
+</form>

@@ -13,6 +13,8 @@ import { TokenInterceptor } from './shared/interceptor/TokenInterceptor';
 import { ZahtevAutorskaPravaModule } from './features/zahtev-autorska-prava/zahtev-autorska-prava.module';
 import { RouterModule } from '@angular/router';
 import { ZahtevPatentModule } from './features/zahtev-patent/zahtev-patent.module';
+import { ZahtevZigModule } from './features/zahtev-zig/zahtev-zig.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,13 +32,16 @@ import { ZahtevPatentModule } from './features/zahtev-patent/zahtev-patent.modul
     ZahtevAutorskaPravaModule,
     ZahtevPatentModule,
     StartpageModule,
+    ZahtevZigModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
+      
     },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

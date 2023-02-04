@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080/api',
+  baseUrl: 'http://localhost:8081/api',
   aServiceUrl: 'http://localhost:8080/api/a1',
   patentUrl: 'http://localhost:8080/api/patent',
+  zigServiceUrl: "http://localhost:8082/api/zig"
 };
 
 /*

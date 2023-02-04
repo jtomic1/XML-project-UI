@@ -43,8 +43,8 @@
                   <b>Датум подношења пријаве: </b> {{item.datum_podnosenja}}                
                 </mat-card-content>
                 <mat-card-actions>
-                  <button mat-raised-button color="warn"><mat-icon>clear</mat-icon>Одбиј</button>
-                  <button mat-raised-button color="primary"><mat-icon>done</mat-icon>Прихвати</button>
+                  <button mat-raised-button color="warn" (click)="deny(item.broj_prijave)"><mat-icon>clear</mat-icon>Одбиј</button>
+                  <button mat-raised-button color="primary" (click)="approve(item.broj_prijave)"><mat-icon>done</mat-icon>Прихвати</button>
                   <button mat-raised-button [matMenuTriggerFor]="aboveMenu1">Преузми документ</button>
                   <mat-menu #aboveMenu1="matMenu" yPosition="above">
                     <button mat-menu-item>PDF формат</button>
@@ -52,8 +52,8 @@
                   </mat-menu>
                   <button mat-raised-button [matMenuTriggerFor]="aboveMenu2">Преузми метаподатке</button>
                   <mat-menu #aboveMenu2="matMenu" yPosition="above">
-                    <button mat-menu-item>RDF формат</button>
-                    <button mat-menu-item>JSON формат</button>
+                    <button mat-menu-item (click)="getRdf(item.broj_prijave)">RDF формат</button>
+                    <button mat-menu-item (click)="getJson(item.broj_prijave)">JSON формат</button>
                   </mat-menu>
                 </mat-card-actions>
               </mat-card>

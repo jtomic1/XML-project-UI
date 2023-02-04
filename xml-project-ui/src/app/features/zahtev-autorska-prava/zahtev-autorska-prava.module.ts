@@ -6,13 +6,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PrikazZahtevaComponent } from './components/prikaz-zahteva/prikaz-zahteva.component';
+import { DenyDialogComponent } from './components/dialogs/deny-dialog/deny-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     ZahtevAutorskaPravaComponent,
-    PrikazZahtevaComponent
+    PrikazZahtevaComponent,
+    DenyDialogComponent
   ],
   imports: [
     CommonModule,

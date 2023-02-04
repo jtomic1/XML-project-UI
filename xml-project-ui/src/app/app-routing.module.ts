@@ -5,6 +5,7 @@ import { StartpageRegisterComponent } from './features/startpage/components/star
 import { PrikazZahtevaComponent } from './features/zahtev-autorska-prava/components/prikaz-zahteva/prikaz-zahteva.component';
 import { ZahtevAutorskaPravaComponent } from './features/zahtev-autorska-prava/components/zahtev-autorska-prava/zahtev-autorska-prava.component';
 import { ZahtevPatentComponent } from './features/zahtev-patent/components/zahtev-patent/zahtev-patent.component';
+import { ZahtevZigComponent } from './features/zahtev-zig/components/zahtev-zig/zahtev-zig.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'a', component: ZahtevAutorskaPravaComponent },
   { path: 'requests', component: PrikazZahtevaComponent },
   { path: 'patentRequest', component: ZahtevPatentComponent },
+  { path: 'a', component: ZahtevZigComponent },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
