@@ -9,6 +9,7 @@ import { MessageService, MessageType } from 'src/app/shared/services/message-ser
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DenyDialogComponent } from '../dialogs/deny-dialog/deny-dialog.component';
 import { Resenje } from '../../model/Resenje';
+import { LoggedUserService } from 'src/app/shared/services/logged-user-service/logged-user.service';
 
 @Component({
   selector: 'app-prikaz-zahteva',
@@ -25,7 +26,8 @@ export class PrikazZahtevaComponent implements OnInit {
   constructor(private autorskaPravaService: AutorskaPravaService,
               private factory: AutorskaPravaFactoryService,
               private messageService: MessageService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private loginService: LoggedUserService) { }
 
   ngOnInit(): void {    
      this.getAllPending();
@@ -78,8 +80,8 @@ export class PrikazZahtevaComponent implements OnInit {
     var datum: string = date.getDate() + '.' + (date.getMonth()+1) + '.' + date.getFullYear() + '.'; 
     var resenje: Resenje = {
       id: id,
-      ime: '',
-      prezime: '',
+      ime: this.loginService.user?.name,
+      prezime: this.loginService.user?.surname,
       obrazlozenje: '',
       status: 'APPROVED',
       datum: datum

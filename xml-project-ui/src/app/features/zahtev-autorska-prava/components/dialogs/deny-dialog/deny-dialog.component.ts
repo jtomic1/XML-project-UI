@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LoggedUserService } from 'src/app/shared/services/logged-user-service/logged-user.service';
 import { MessageService, MessageType } from 'src/app/shared/services/message-service/message.service';
 import { Resenje } from '../../../model/Resenje';
 import { AutorskaPravaService } from '../../../services/autorska-prava-service/autorska-prava.service';
@@ -21,7 +22,8 @@ export class DenyDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DenyDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private autorskaPravaService: AutorskaPravaService,
-              private messageService: MessageService) { }
+              private messageService: MessageService,
+              private loginService: LoggedUserService) { }
 
   ngOnInit(): void {
   }
@@ -42,8 +44,8 @@ export class DenyDialogComponent implements OnInit {
       var datum: string = date.getDate() + '.' + (date.getMonth()+1) + '.' + date.getFullYear() + '.';
       var resenje: Resenje = {
         id: this.data.id,
-        ime: '',
-        prezime: '',
+        ime: this.loginService.user?.name,
+        prezime: this.loginService.user?.surname,
         status: 'DENIED',
         datum: datum,
         obrazlozenje: this.form.controls['reason'].value
