@@ -44,4 +44,6 @@ export class ZigImageComponent implements OnInit {
       }
     }
   }
+
+  
 }

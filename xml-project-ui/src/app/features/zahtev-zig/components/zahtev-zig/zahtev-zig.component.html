@@ -4,7 +4,7 @@
         <mat-step>
           <ng-template matStepLabel>Подносилац пријаве</ng-template>
           <ng-template matStepContent>
-            <app-podaci-info [form]="form"></app-podaci-info>
+            <app-podaci-info [form]="getFormGroup('podnosilac')"></app-podaci-info>
             <div>
                 <button mat-button matStepperNext>Даље</button>
             </div>  
@@ -13,16 +13,25 @@
         <mat-step>
           <ng-template matStepLabel>Пуномоћник</ng-template>
           <ng-template matStepContent>
-            <app-podaci-info [form]="form"></app-podaci-info>
+            <app-podaci-info [form]="getFormGroup('punomocnik')"></app-podaci-info>
             <div>
                 <button mat-button matStepperNext>Даље</button>
             </div>
           </ng-template>
         </mat-step>
         <mat-step>
-          <ng-template matStepLabel>Заједничи посредник</ng-template>
+          <div>
+            <mat-radio-group [formControl]="contractor" (change)="typeChanged()">
+              <mat-radio-button value="true" >Da</mat-radio-button>
+              <mat-radio-button value="" [checked]="true">Ne</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <ng-template matStepLabel  >Заједничи посредник</ng-template>
+          
+
           <ng-template matStepContent>
-            <app-podaci-info [form]="form"></app-podaci-info>
+            <app-podaci-info [form]="getFormGroup('zajednicki_posrednik')" *ngIf="showContractor"></app-podaci-info>
             <div>
                 <button mat-button matStepperNext>Даље</button>
             </div>
@@ -31,7 +40,7 @@
         <mat-step>
           <ng-template matStepLabel>Изглед жига</ng-template>
           <ng-template matStepContent>
-            <app-zig-type [form]="form"></app-zig-type>
+            <app-zig-type [form]="getFormGroup('opis_ziga')"></app-zig-type>
             <div>
                 <button mat-button matStepperNext>Даље</button>
             </div>
@@ -40,7 +49,7 @@
         <mat-step>
           <ng-template matStepLabel>Додатни опис жига</ng-template>
           <ng-template matStepContent>
-            <app-zig-description  [form]="form"></app-zig-description>
+            <app-zig-description  [form]="getFormGroup('opis_ziga.znak')"></app-zig-description>
             <div>
                 <button mat-button matStepperNext>Даље</button>
             </div>
@@ -49,7 +58,7 @@
         <mat-step>
           <ng-template matStepLabel>Бројеви класа робе и услуга према Ничанској класификацији</ng-template>
           <ng-template matStepContent>
-            <app-nincanska-classification [form]="form"></app-nincanska-classification>
+            <app-nincanska-classification [form]="getFormGroup('brojevi_klasa_robe_usluga')"></app-nincanska-classification>
             <div>
                 <button mat-button matStepperNext>Даље</button>
             </div>
@@ -58,9 +67,11 @@
         <mat-step>
           <ng-template matStepLabel>Затражено право првенства и основ</ng-template>
           <ng-template matStepContent>
-            <app-zig-pavo-i-osnov [form]="form"></app-zig-pavo-i-osnov>
+            <app-zig-pavo-i-osnov [form]="getFormGroup('zatrazeno_pravo_prvenstva')"></app-zig-pavo-i-osnov>
             <div>
                 <button mat-button matStepperNext>Даље</button>
+                
+                <button mat-button primary (click)="sendRequestForZig()">Поднеси захтев</button>
             </div>
           </ng-template>
         </mat-step>

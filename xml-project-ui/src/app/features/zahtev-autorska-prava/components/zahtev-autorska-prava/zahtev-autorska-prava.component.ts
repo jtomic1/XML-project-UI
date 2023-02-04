@@ -150,7 +150,7 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
       datum_podnosenja: this.factory.getDatumPodnosenja()
     }
     var obrazac: ObrazacA1 = {
-      //zavod: this.factory.generateZavod(),
+      zavod: this.factory.generateZavod(),
       zahtev: zahtev
     };
     return obrazac;
@@ -159,7 +159,7 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
   sendRequest() {
     if (this.validateForms()) {      
       var obrazac: ObrazacA1 = this.generateObrazac();
-      this.autorskaPravaService.save(obrazac.zahtev)
+      this.autorskaPravaService.save(obrazac)
         .subscribe((res: any) => {
           console.log(res);
         });

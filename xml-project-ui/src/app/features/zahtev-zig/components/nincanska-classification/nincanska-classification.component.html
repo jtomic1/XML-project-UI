@@ -1,5 +1,5 @@
 <div  class="list-horizontal">
-    <mat-chip *ngFor="let number of numbers" [selectable]="true" [selected]="selectedNumbers[number]"
+    <mat-chip *ngFor="let number of numbers" [selectable]="true" [selected]="selectedNumbers[number]" 
     (click)="changeSelection(number)">
       {{number}}
     </mat-chip>

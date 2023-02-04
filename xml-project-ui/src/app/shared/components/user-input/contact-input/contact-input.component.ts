@@ -14,4 +14,7 @@ export class ContactInputComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getFormGroup(name : string ): FormGroup{
+    return this.form.get(name) as FormGroup;
+  }
 }

@@ -3,23 +3,25 @@
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Тип жига</mat-label>
-            <select matNativeControl required formControlName="zigType">
-                <option value="volvo">Индивидуални жиг</option>
-                <option value="saab">Колективни жиг</option>
-                <option value="mercedes">Жиг гаранције</option>
+            <select matNativeControl required formControlName="tip_ziga">
+                <option value="individualni_zig">Индивидуални жиг</option>
+                <option value="kolektivni_zig">Колективни жиг</option>
+                <option value="zig_garancije">Жиг гаранције</option>
             </select>
         </mat-form-field>
     </div>
+</form>
+<form [formGroup]="getFormGroup('znak')">
     <label>Опис знака</label>
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Опис знака</mat-label>
-            <select matNativeControl required formControlName="zigType">
-                <option value="volvo">вербални знак (знак у речи)</option>
-                <option value="saab">графички знак; боју, комбинацију боја</option>
-                <option value="mercedes">комбиновани знак</option>
-                <option value="audi">тродимензионални знак</option>
-                <option value="audi">другу врсту знака (навести коју) </option>
+            <select matNativeControl required formControlName="vrsta_znaka">
+                <option value="verbalni">вербални знак (знак у речи)</option>
+                <option value="graficki">графички знак; боју, комбинацију боја</option>
+                <option value="kombinovani">комбиновани знак</option>
+                <option value="trodimenzionalni">тродимензионални знак</option>
+                <option value="drugo">другу врсту знака (навести коју) </option>
             </select>
         </mat-form-field>
     </div>
