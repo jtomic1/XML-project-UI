@@ -20,12 +20,7 @@ export class NavbarComponent implements OnInit {
     { name: 'zigOption 1', link: 'dummyLink1' },
     { name: 'zigOption 2', link: 'dummyLink2' },
     { name: 'zigOption 3', link: 'dummyLink3' },
-  ];
-  autorskaOptions: MenuItem[] = [
-    { name: 'autorskaOption 1', link: 'dummyLink1' },
-    { name: 'autorskaOption 2', link: 'dummyLink2' },
-    { name: 'autorskaOption 3', link: 'dummyLink3' },
-  ];
+  ];  
 
   constructor(
     public loggedService: LoggedUserService,

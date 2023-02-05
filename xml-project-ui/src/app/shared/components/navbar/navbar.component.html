@@ -36,13 +36,11 @@
         Сервис за ауторска права
       </button>
       <mat-menu #autorska="matMenu">
-        <button
-          *ngFor="let item of autorskaOptions"
-          mat-menu-item
-          [routerLink]="[item.link]"
-        >
-          {{ item.name }}
-        </button>
+        <button mat-menu-item [routerLink]="['/a']" *ngIf="loggedService.user?.role === 'citizen'">Поднеси захтев</button>
+        <button mat-menu-item [routerLink]="['/autorskaApproved']" *ngIf="loggedService.user?.role === 'citizen'">Преглед прихваћених</button>
+        <button mat-menu-item [routerLink]="['/autorskaRequests']" *ngIf="loggedService.user?.role !== 'citizen'">Преглед необрађених</button>
+        <button mat-menu-item [routerLink]="['/autorskaApproved']" *ngIf="loggedService.user?.role !== 'citizen'">Преглед прихваћених</button>
+        <button mat-menu-item [routerLink]="['/autorskaReport']" *ngIf="loggedService.user?.role !== 'citizen'">Увид у извештаје</button>      
       </mat-menu>
     </span>
   </div>

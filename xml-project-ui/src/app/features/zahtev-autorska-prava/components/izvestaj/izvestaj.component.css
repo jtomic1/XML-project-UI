@@ -1,0 +1,10 @@
+.date-range-picker{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+button {
+    margin-top: 15px;
+}
