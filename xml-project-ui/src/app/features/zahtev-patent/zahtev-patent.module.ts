@@ -13,6 +13,7 @@ import { XonomyEditorComponent } from './components/xonomy-editor/xonomy-editor.
 import { PregledZahtevaComponent } from './components/pregled-zahteva/pregled-zahteva.component';
 import { ZahtevKarticaComponent } from './components/zahtev-kartica/zahtev-kartica.component';
 import { RouterModule } from '@angular/router';
+import { ResenjeDialogComponent } from './components/resenje-dialog/resenje-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RouterModule } from '@angular/router';
     XonomyEditorComponent,
     PregledZahtevaComponent,
     ZahtevKarticaComponent,
+    ResenjeDialogComponent,
   ],
   imports: [CommonModule, SharedModule, ReactiveFormsModule, RouterModule],
   exports: [ZahtevPatentComponent],

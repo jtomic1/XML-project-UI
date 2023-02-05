@@ -192,7 +192,58 @@
     </mat-card-content>
   </mat-card>
   <mat-card class="item action-bar" *ngIf="showActionBar">
-    <button mat-raised-button color="primary">Test 1</button>
-    <button mat-raised-button color="primary">Test 1</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [matMenuTriggerFor]="download"
+      yPosition="above"
+      xPosition="before"
+    >
+      Преузми
+    </button>
+    <mat-menu #download="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="zahtevi">Захтев</button>
+      <button mat-menu-item [matMenuTriggerFor]="metadata">
+        Метаподаци захтева
+      </button>
+    </mat-menu>
+
+    <mat-menu #zahtevi="matMenu">
+      <button
+        mat-menu-item
+        (click)="downloadPDF(zahtev.podaciZavod!.brojPrijave)"
+      >
+        PDF
+      </button>
+      <button
+        mat-menu-item
+        (click)="downloadXHTML(zahtev.podaciZavod!.brojPrijave)"
+      >
+        XHTML
+      </button>
+    </mat-menu>
+
+    <mat-menu #metadata="matMenu">
+      <button
+        mat-menu-item
+        (click)="downloadRDF(zahtev.podaciZavod!.brojPrijave)"
+      >
+        RDF
+      </button>
+      <button
+        mat-menu-item
+        (click)="downloadJSON(zahtev.podaciZavod!.brojPrijave)"
+      >
+        JSON
+      </button>
+    </mat-menu>
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="zahtev.podaciZavod!.statusZahteva === 'pending'"
+      (click)="showResenjeDialog()"
+    >
+      Поднеси решење
+    </button>
   </mat-card>
 </mat-card>

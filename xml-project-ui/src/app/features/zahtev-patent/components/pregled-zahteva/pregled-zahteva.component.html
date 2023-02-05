@@ -11,7 +11,15 @@
     "
     *ngIf="showPretraga"
   >
-    <mat-form-field appearance="outline">
+    <mat-form-field style="margin-right: 10px" appearance="outline">
+      <mat-label>Статус патента</mat-label>
+      <mat-select [disabled]="disableStatusSelect" formControlName="status">
+        <mat-option *ngFor="let item of statusOptions" [value]="item.status">{{
+          item.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="search" appearance="outline">
       <mat-label>Претрага</mat-label>
       <input matInput formControlName="pretraga" />
     </mat-form-field>
@@ -20,12 +28,11 @@
       color="primary"
       style="margin-left: 8px; margin-bottom: 21px; display: block"
       (click)="search()"
-      [disabled]="form.controls['pretraga'].value === ''"
     >
       Претражи
     </button>
   </div>
-  <mat-card class="content-card">
+  <mat-card class="content-card" *ngIf="patenti.length > 0">
     <div *ngFor="let item of patenti; let i = index" style="width: 100%">
       <app-zahtev-kartica
         [zahtev]="item"
@@ -33,4 +40,5 @@
       ></app-zahtev-kartica>
     </div>
   </mat-card>
+  <h1 *ngIf="patenti.length < 1">Није пронађен ни један патент у бази!</h1>
 </div>
