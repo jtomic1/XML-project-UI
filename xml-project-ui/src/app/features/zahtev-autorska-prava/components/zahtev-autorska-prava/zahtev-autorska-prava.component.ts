@@ -159,20 +159,10 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
   sendRequest() {
     if (this.validateForms()) {      
       var obrazac: ObrazacA1 = this.generateObrazac();
-      this.autorskaPravaService.save(obrazac)
+      this.autorskaPravaService.save(obrazac.zahtev)
         .subscribe((res: any) => {
           console.log(res);
         });
     }
-
-
-    // this.autorskaPravaService.get('A-20230201115724').subscribe((res: any) => {      
-    //   const parser = new xml2js.Parser({strict: true, trim: true});
-    //   parser.parseString(res.toString(), (err, result) => {
-    //       console.log(result);
-    //       var zahtev: ZahtevDTO = this.factory.getZahtevDTO(result.ObrazacA1.zahtev[0]);
-    //       console.log(zahtev);                  
-    //     });
-    // });   
   }
 }
