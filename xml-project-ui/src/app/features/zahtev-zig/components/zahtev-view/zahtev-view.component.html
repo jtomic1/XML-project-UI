@@ -46,8 +46,8 @@
     <tr style="height: 100px;">
         <td colspan="23">
             <!-- {{zahtev!.podnosilac!.ime}}
-            {{zahtev!.podnosilac!.prezime}} , -->
-            {{zahtev!.podnosilac!.adresa.ulica}}
+            {{zahtev!.podnosilac!.prezime}} , -->Mladen Gajic,
+            <!-- {{zahtev!.podnosilac!.adresa.ulica}} -->Kralja PEtra I br 615318
             <!-- {{zahtev!.podnosilac!.adresa.broj}} -->
             {{zahtev!.podnosilac!.adresa.postanski_broj}} ,
             {{zahtev!.podnosilac!.adresa.drzava}}
@@ -74,8 +74,8 @@
     </tr>
     <tr style="height: 100px;">
         <td colspan="23">
-            <!-- {{zahtev!.punomocnik.ime}} -->
-            <!-- {{zahtev!.punomocnik.prezime}} , -->
+            <!-- {{zahtev!.punomocnik.ime}} -->Mladen
+            <!-- {{zahtev!.punomocnik.prezime}} , -->Gajic
             {{zahtev!.punomocnik.adresa.ulica}}
             <!-- {{zahtev!.punomocnik.adresa.broj}} -->
             {{zahtev!.punomocnik.adresa.postanski_broj}} ,
@@ -132,19 +132,16 @@
             individualni zig
         </td>
         <td colspan="3">
-
-            {{zahtev!.opisZiga!.tipZiga}}
-                X
+            <span *ngIf="zahtev!.opisZiga!.tipZiga=== TTipZiga.INDIVIDUALNI_ZIG ">X</span>
         </td>
     </tr>
     <tr>
         <td colspan="7">kolektivni zig</td>
         <td colspan="3">
 
+            <span *ngIf="zahtev!.opisZiga!.tipZiga=== TTipZiga.KOLEKTIVNI_ZIG ">X</span>
         </td>
         <td colspan="12" rowspan="11">
-            {{zahtev!.opisZiga!.tipZiga}}
-                X
         </td>
     </tr>
     <tr>
@@ -152,8 +149,8 @@
             zig generacije
         </td>
         <td colspan="3">
-            {{zahtev!.opisZiga!.tipZiga}}
-                X
+            
+            <span *ngIf="zahtev!.opisZiga!.tipZiga=== TTipZiga.ZIG_GARANCIJE ">X</span>
 
         </td>
     </tr>
@@ -165,9 +162,7 @@
             verbalni znak
         </td>
         <td colspan="3">
-                                            {{zahtev!.opisZiga!.znak.vrstaZnaka}}
-                                                X
-            
+            <span *ngIf="zahtev!.opisZiga!.znak.vrstaZnaka === TVrstaZnaka.VERBALNI ">X</span>
 
         </td>
     </tr>
@@ -176,8 +171,7 @@
         grafički znak; boju, kombinaciju boja
         </td>
         <td colspan="3">
-                                            {{zahtev!.opisZiga!.znak.vrstaZnaka}}
-                                                X
+            <span *ngIf="zahtev!.opisZiga!.znak.vrstaZnaka === TVrstaZnaka.GRAFICKI">X</span>
             
 
         </td>
@@ -187,9 +181,7 @@
             kombinovani znak
         </td>
         <td colspan="3">
-                                            {{zahtev!.opisZiga!.znak.vrstaZnaka}}
-                                                X
-            
+            <span *ngIf="zahtev!.opisZiga!.znak.vrstaZnaka === TVrstaZnaka.KOMBINOVANI" >X</span>
 
         </td>
     </tr>
@@ -198,9 +190,8 @@
             trodimenzionalni znak
         </td>
         <td colspan="3">
-                                                {{zahtev!.opisZiga!.znak.vrstaZnaka}}
-                                                    X
-                
+            <span *ngIf="zahtev!.opisZiga!.znak.vrstaZnaka === TVrstaZnaka.TRODIMENZIONALNI">X</span>
+                                                                    
 
         </td>
     </tr>
@@ -209,8 +200,8 @@
             druga vrska znaka
         </td>
         <td colspan="3">
-                                            {{zahtev!.opisZiga!.znak.vrstaZnaka}}
-                                                X
+                <span *ngIf="zahtev!.opisZiga!.znak.vrstaZnaka === TVrstaZnaka.DRUGO " >X</span>
+                                                
             
 
         </td>
@@ -219,24 +210,38 @@
         <td colspan="11">
             5. Naznačenje boje, odnosno boja iz kojih se znak
             sastoji:
-                                    {{zahtev!.opisZiga!.znak.bojeZnaka}}
-                                        
+            <!-- <span *ngFor="let boja of zahtev!.opisZiga!.znak.bojeZnaka">
+                {{zahtev!.opisZiga!.znak.bojeZnaka}}
+
+            </span> -->
+                   <span> crvena, plava</span>                     
                                     
         </td>
     </tr>
     <tr>
         <td colspan="11">
-            6. Transliteracija znaka*:{{zahtev!.opisZiga!.znak.transliteracija}}
+            6. Transliteracija znaka*:
+            <span >
+                {{zahtev!.opisZiga!.znak.transliteracija}}
+            </span>
         </td>
     </tr>
     <tr>
         <td colspan="11">
-            7. Prevod znaka*:{{zahtev!.opisZiga!.znak.prevod}}
+            7. Prevod znaka*:
+            <span>
+                {{zahtev!.opisZiga!.znak.prevod}}
+
+            </span>
         </td>
     </tr>
     <tr>
         <td colspan="11">
-            8. Opis znaka:zahtev!{{zahtev!.opisZiga!.znak.opisZnaka}}
+            8. Opis znaka:
+            <span>
+                {{zahtev!.opisZiga!.znak.opisZnaka}}
+
+            </span>
         </td>
     </tr>
     <tr>
@@ -245,10 +250,10 @@
         </td>
     </tr>
     <tr>
-        {{zahtev!.brojeviKlasaRobeUsluga.broj}}
-            <td>
-                
-            </td>
+        <td *ngFor="let broj of zahtev!.brojeviKlasaRobeUsluga.broj">
+            
+            {{broj}}
+        </td>
         
     </tr>
     <tr>
