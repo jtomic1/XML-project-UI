@@ -4,12 +4,14 @@ import { AutorskaPravaService } from '../../services/autorska-prava-service/auto
 import * as xml2js from 'xml2js';
 import { AutorskaPravaFactoryService } from '../../services/autorska-prava-factory/autorska-prava-factory.service';
 import { Podnosilac } from '../../model/Podnosilac';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService, MessageType } from 'src/app/shared/services/message-service/message.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DenyDialogComponent } from '../dialogs/deny-dialog/deny-dialog.component';
 import { Resenje } from '../../model/Resenje';
 import { LoggedUserService } from 'src/app/shared/services/logged-user-service/logged-user.service';
+import { ConnectableObservable } from 'rxjs';
+import { MetadataSearch } from '../../model/MetadataSearch';
 
 @Component({
   selector: 'app-prikaz-zahteva',
@@ -18,9 +20,26 @@ import { LoggedUserService } from 'src/app/shared/services/logged-user-service/l
 })
 export class PrikazZahtevaComponent implements OnInit {
 
+  metadataOptions: String[] = [
+    'broj_prijave',
+    'datum_podnosenja',
+    'email_podnosilac',
+    'forma_zapisa',
+    'naslov_dela',
+    'telefon_podnosilac',
+    'vrsta_dela'
+  ];
+
+  operatorOptions: String[] = [
+    'NE',
+    'I',
+    'ILI'
+  ];
+
   zahtevi: ZahtevDTO[] = [];
 
-  form: FormGroup = this.generateSearchFormGroup();
+  formTextSearch: FormGroup = this.generateTextSearchForm();
+  formMetadataSearch: FormGroup = this.generateMetadataSearchForm();
   showCancelSearch: boolean = false;
 
   constructor(private autorskaPravaService: AutorskaPravaService,
@@ -31,18 +50,30 @@ export class PrikazZahtevaComponent implements OnInit {
 
   ngOnInit(): void {    
      this.getAllPending();
+     console.log(this.loginService.user?.name);
+     console.log(this.loginService.user?.surname);
   }
 
-  generateSearchFormGroup(): FormGroup {
+  generateTextSearchForm(): FormGroup {
     return new FormGroup({
       query: new FormControl('')
+    });
+  }
+
+  generateMetadataSearchForm(): FormGroup {
+    return new FormGroup({
+      metadataOption1: new FormControl('', Validators.required),
+      metadataValue1: new FormControl('', Validators.required),
+      operatorOption: new FormControl('', Validators.required),
+      metadataOption2: new FormControl(''),
+      metadataValue2: new FormControl('')
     });
   }
 
   getAllPending() {
     this.showCancelSearch = false;
     this.zahtevi = [];
-    this.form = this.generateSearchFormGroup();
+    this.formTextSearch = this.generateTextSearchForm();
     this.autorskaPravaService.getAllPending().subscribe((res: any) => {
       const parser = new xml2js.Parser({strict: true, trim: true});
       parser.parseString(res.toString(), (err, result) => {          
@@ -58,10 +89,10 @@ export class PrikazZahtevaComponent implements OnInit {
   }
 
 
-  search() {
+  searchByText() {
     this.showCancelSearch = true;
     this.zahtevi = [];
-    this.autorskaPravaService.search(this.form.controls['query'].value).subscribe((res: any) => {
+    this.autorskaPravaService.searchText(this.formTextSearch.controls['query'].value).subscribe((res: any) => {
       const parser = new xml2js.Parser({strict: true, trim: true});
       parser.parseString(res.toString(), (err, result) => {          
           let resenja = result.ArrayList.item;          
@@ -73,6 +104,43 @@ export class PrikazZahtevaComponent implements OnInit {
           }          
         });
     });    
+  }
+
+  searchByMetadata() {
+    if ((this.formMetadataSearch.valid && this.formMetadataSearch.controls['operatorOption'].value === 'NE') || this.checkMetadataForm()) {      
+      var metadata: MetadataSearch = {
+        first_type: this.formMetadataSearch.controls['metadataOption1'].value,
+        first_value: this.formMetadataSearch.controls['metadataValue1'].value,
+        operator: this.formMetadataSearch.controls['operatorOption'].value,
+        second_type: this.formMetadataSearch.controls['metadataOption2'].value,
+        second_value: this.formMetadataSearch.controls['metadataValue2'].value 
+      };
+      this.showCancelSearch = true;
+      this.zahtevi = [];
+      this.autorskaPravaService.searchMetadata(metadata).subscribe((res: any) => {
+        const parser = new xml2js.Parser({strict: true, trim: true});
+        parser.parseString(res.toString(), (err, result) => {          
+          let resenja = result.ArrayList.item;          
+          if (resenja !== undefined) {
+            for (var resenje of resenja) {              
+              var zahtev: ZahtevDTO = this.factory.getZahtevDTO(resenje.zahtev[0]);
+              this.zahtevi.push(zahtev);
+            }
+          }          
+        });
+      });
+    } else {
+      this.messageService.showMessage('Подаци који су унети за претрагу по метаподацима су неисправни', MessageType.ERROR);
+    }
+  }
+
+  checkMetadataForm(): boolean {
+    if (this.formMetadataSearch.controls['operatorOption'].value !== 'NE' &&
+        this.formMetadataSearch.controls['metadataOption2'].value !== '' &&
+        this.formMetadataSearch.controls['metadataValue2'].value !== ''){
+          return true;
+    }
+    return false;
   }
 
   approve(id: string) {

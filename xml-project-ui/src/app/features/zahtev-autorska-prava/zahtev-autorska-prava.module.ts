@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PrikazZahtevaComponent } from './components/prikaz-zahteva/prikaz-zahteva.component';
 import { DenyDialogComponent } from './components/dialogs/deny-dialog/deny-dialog.component';
+import { PrikazOdobrenihComponent } from './components/prikaz-odobrenih/prikaz-odobrenih.component';
 
 
 
@@ -14,7 +15,8 @@ import { DenyDialogComponent } from './components/dialogs/deny-dialog/deny-dialo
   declarations: [
     ZahtevAutorskaPravaComponent,
     PrikazZahtevaComponent,
-    DenyDialogComponent
+    DenyDialogComponent,
+    PrikazOdobrenihComponent
   ],
   imports: [
     CommonModule,

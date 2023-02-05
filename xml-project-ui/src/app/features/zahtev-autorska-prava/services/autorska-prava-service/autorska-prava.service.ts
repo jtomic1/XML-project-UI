@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as JsonToXML from "js2xmlparser";
 import { environment } from 'src/environments/environment';
+import { MetadataSearch } from '../../model/MetadataSearch';
 import { Resenje } from '../../model/Resenje';
 import { Zahtev } from '../../model/Zahtev';
 
@@ -38,10 +39,20 @@ export class AutorskaPravaService {
     });
   }
 
-  search(query: string) {
+  searchText(query: string) {
     const url = `${environment.aServiceUrl}/search`;
     return this.http.get(url, {
       params: {query: query},
+      headers: new HttpHeaders().set('Content-Type', 'application/xml'),
+      responseType: 'text'
+    });
+  }
+
+  searchMetadata(md: MetadataSearch) {
+    const url = `${environment.aServiceUrl}/searchMetadata`;
+    const xml = JsonToXML.parse("metadata", md);
+    console.log(xml)
+    return this.http.post(url, xml, {
       headers: new HttpHeaders().set('Content-Type', 'application/xml'),
       responseType: 'text'
     });
