@@ -1,0 +1,102 @@
+<div class="main-conatiner" *ngIf="!showZahtev">
+<div style="display: flex;
+justify-content: space-evenly;
+padding-top: 15px;">
+    <div style="
+    display:flex;
+    align-items: center;
+    " >
+        <mat-radio-group [(ngModel)]="filter" (change)="filterChange()">
+            <mat-radio-button value="predati" >
+                Predati zahtevi
+            </mat-radio-button>
+            <mat-radio-button value="odobreni">
+                Odobreni zahtevi
+            </mat-radio-button>
+            <mat-radio-button value="odbijeni">
+                Odijeni zahtevi
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div
+    [formGroup]="form"
+        style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        "
+        *ngIf="showPretraga"
+    >
+
+    
+
+        <mat-form-field appearance="outline">
+        <mat-label>Претрага</mat-label>
+        <input matInput formControlName="pretraga" />
+        </mat-form-field>
+        <button
+        mat-raised-button
+        color="primary"
+        style="margin-left: 8px; margin-bottom: 21px; display: block"
+        (click)="search()"
+        [disabled]="form.controls['pretraga'].value === ''"
+        >
+        Претражи
+        </button>
+    </div>
+</div>
+    <div class="requests">
+        <div *ngFor="let item of zahtevi; let i = index" class="requests">
+            <mat-card class="example-card" >
+                <mat-card-header>
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>{{item.brojZahteva!}}</mat-card-title>
+                </mat-card-header>            
+                <mat-card-content (click)="changeZahtevForShow(item)">
+                    <div>
+                        <div>
+                            podnosilac: {{item.podnosilac.kontakt.email}}
+                        </div>
+                        <div>
+                            punomocnik: {{item.punomocnik.kontakt.email}}
+                        </div>
+                    </div>
+
+                    <div *ngIf="approvedShow || canceledShow">
+                        <img src="assets/QRcode.png" style="width: 70px;
+                        position: absolute;
+                        right: 10%;
+                        top: 26%;"/> 
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                
+                    <div>
+                        <div *ngIf="appliedShow">
+
+                            <button mat-raised-button color="warn" (click)="deny(i)"><mat-icon>clear</mat-icon>Одбиј</button>
+                            <button mat-raised-button color="primary" (click)="approve(i)"><mat-icon>done</mat-icon>Прихвати</button>
+                        </div>
+                        <div *ngIf="approvedShow || canceledShow">
+
+                            <button mat-raised-button [matMenuTriggerFor]="aboveMenu1">Преузми документ</button>
+                            <mat-menu #aboveMenu1="matMenu" yPosition="above">
+                              <button mat-menu-item (click)="getPDF(i)">PDF формат</button>
+                              <button mat-menu-item (click)="getHTML(i)">XHTML формат</button>
+                            </mat-menu>
+                            <button mat-raised-button [matMenuTriggerFor]="aboveMenu2">Преузми метаподатке</button>
+                            <mat-menu #aboveMenu2="matMenu" yPosition="above">
+                              <button mat-menu-item (click)="getRdf(i)">RDF формат</button>
+                              <button mat-menu-item (click)="getJson(i)">JSON формат</button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                </mat-card-actions>
+              </mat-card>
+        </div>
+    </div>
+</div>
+
+<app-zahtev-view [zahtev]="zahtevForShow" *ngIf="showZahtev" (newItemEvent)="showList()">
+
+</app-zahtev-view>
