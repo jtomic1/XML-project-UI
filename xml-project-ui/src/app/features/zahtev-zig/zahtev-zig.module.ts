@@ -7,6 +7,8 @@ import { ZigImageComponent } from './components/zig-image/zig-image.component';
 import { ZigDescriptionComponent } from './components/zig-description/zig-description.component';
 import { NincanskaClassificationComponent } from './components/nincanska-classification/nincanska-classification.component';
 import { ZigPavoIOsnovComponent } from './components/zig-pavo-i-osnov/zig-pavo-i-osnov.component';
+import { UvidUZahteveComponent } from './components/uvid-u-zahteve/uvid-u-zahteve.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -18,10 +20,12 @@ import { ZigPavoIOsnovComponent } from './components/zig-pavo-i-osnov/zig-pavo-i
     ZigDescriptionComponent,
     NincanskaClassificationComponent,
     ZigPavoIOsnovComponent,
+    UvidUZahteveComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule
   ],
   exports:[
     ZahtevZigComponent

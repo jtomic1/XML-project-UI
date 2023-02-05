@@ -157,12 +157,12 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
   }
 
   sendRequest() {
-    if (this.validateForms()) {      
-      var obrazac: ObrazacA1 = this.generateObrazac();
-      this.autorskaPravaService.save(obrazac)
-        .subscribe((res: any) => {
-          console.log(res);
-        });
+    // if (this.validateForms()) {      
+    //   var obrazac: ObrazacA1 = this.generateObrazac();
+    //   this.autorskaPravaService.save(obrazac)
+    //     .subscribe((res: any) => {
+    //       console.log(res);
+    //     });
     }
 
 
@@ -175,4 +175,4 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
     //     });
     // });   
   }
-}
+

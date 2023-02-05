@@ -3,7 +3,7 @@ import { Znak } from "./Znak";
 
 export interface OpisZiga {
 
-    tip_ziga:TTipZiga;
+    tipZiga:TTipZiga;
     znak:Znak;
     
 }
