@@ -123,7 +123,25 @@ export class PrikazZahtevaComponent implements OnInit {
       a.href = URL.createObjectURL(data);
       a.download = id + '.rdf';
       a.click();
-    })
+    });
+  }
+
+  getPdf(id: string) {
+    this.autorskaPravaService.getPdf(id).subscribe(data => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(data);
+      a.download = id + '.pdf';
+      a.click();
+    });
+  }
+
+  getXhtml(id: string) {
+    this.autorskaPravaService.getXhtml(id).subscribe(data => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(data);
+      a.download = id + '.html';
+      a.click();
+    });
   }
 
   getPodnosilac(id: number): string {

@@ -190,12 +190,13 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
   }
 
   sendRequest() {
-    // if (this.validateForms()) {
-    //   var obrazac: ObrazacA1 = this.generateObrazac();
-    //   this.autorskaPravaService.save(obrazac)
-    //     .subscribe((res: any) => {
-    //       console.log(res);
-    //     });
+    if (this.validateForms()) {      
+      var obrazac: ObrazacA1 = this.generateObrazac();
+      this.autorskaPravaService.save(obrazac.zahtev)
+        .subscribe((res: any) => {
+          console.log(res);
+        });
+    }
   }
 
   // this.autorskaPravaService.get('A-20230201115724').subscribe((res: any) => {
