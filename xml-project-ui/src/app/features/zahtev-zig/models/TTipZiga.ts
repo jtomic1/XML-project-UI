@@ -1,6 +1,6 @@
 export enum TTipZiga {
 
-    INDIVIDUALNI_ZIG= "individualni_zig",
-    KOLEKTIVNI_ZIG= "kolektivni_zig",
-    ZIG_GARANCIJE= "zig_garancije",
+    INDIVIDUALNI_ZIG= "INDIVIDUALNI_ZIG",
+    KOLEKTIVNI_ZIG= "KOLEKTIVNI_ZIG",
+    ZIG_GARANCIJE= "ZIG_GARANCIJE",
 }

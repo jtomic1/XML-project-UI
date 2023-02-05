@@ -4,6 +4,7 @@ import { StartpageLoginComponent } from './features/startpage/components/startpa
 import { StartpageRegisterComponent } from './features/startpage/components/startpage-register/startpage-register.component';
 import { PrikazZahtevaComponent } from './features/zahtev-autorska-prava/components/prikaz-zahteva/prikaz-zahteva.component';
 import { ZahtevAutorskaPravaComponent } from './features/zahtev-autorska-prava/components/zahtev-autorska-prava/zahtev-autorska-prava.component';
+import { UvidUZahteveComponent } from './features/zahtev-zig/components/uvid-u-zahteve/uvid-u-zahteve.component';
 import { PregledZahtevaComponent } from './features/zahtev-patent/components/pregled-zahteva/pregled-zahteva.component';
 import { ZahtevPatentComponent } from './features/zahtev-patent/components/zahtev-patent/zahtev-patent.component';
 import { ZahtevZigComponent } from './features/zahtev-zig/components/zahtev-zig/zahtev-zig.component';
@@ -12,12 +13,13 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: StartpageLoginComponent },
   { path: 'register', component: StartpageRegisterComponent },
-  { path: 'a', component: ZahtevAutorskaPravaComponent },
+  // { path: 'a', component: ZahtevAutorskaPravaComponent },
   { path: 'requests', component: PrikazZahtevaComponent },
   { path: 'patentRequest', component: ZahtevPatentComponent },
   { path: 'allPatents', component: PregledZahtevaComponent },
   { path: 'patent/:id', component: PregledZahtevaComponent },
   { path: 'a', component: ZahtevZigComponent },
+  { path: 'b', component: UvidUZahteveComponent },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 

@@ -1,13 +1,24 @@
-import { BojeZnaka } from "./BojeZnaka";
+import { BojeZnaka, BojeZnakaSend } from "./BojeZnaka";
 import { TVrstaZnaka } from "./TVrstaZnaka";
 
 export interface Znak {
 
-  izgled_znaka:String;
-  vrsta_znaka:TVrstaZnaka;
-  boje_znaka: BojeZnaka;
+  izgledZnaka:String;
+  vrstaZnaka:TVrstaZnaka;
+  bojeZnaka: BojeZnaka;
   transliteracija:String;
   prevod:String;
-  opis_znaka:String;
+  opisZnaka:String;
+
+}
+
+export interface ZnakSEND {
+
+  izgledZnaka:String;
+  vrstaZnaka:TVrstaZnaka;
+  bojeZnaka: BojeZnakaSend;
+  transliteracija:String;
+  prevod:String;
+  opisZnaka:String;
 
 }
