@@ -16,9 +16,6 @@ import {
 export class NavbarComponent implements OnInit {
   logoutIcon = faRightFromBracket;
 
-  // name na cirilici ako cemo tako ceo projekat
-  patentOptions: MenuItem[] = [];
-
   zigOptions: MenuItem[] = [
     { name: 'zigOption 1', link: 'dummyLink1' },
     { name: 'zigOption 2', link: 'dummyLink2' },
@@ -35,17 +32,7 @@ export class NavbarComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.patentOptions = [{ name: 'Преглед захтева', link: '/allPatents' }];
-    if (this.loggedService.user?.role === 'client')
-      this.patentOptions.push({
-        name: 'Поднеси захтев',
-        link: '/patentRequest',
-      });
-    else {
-      this.patentOptions.push({ name: 'Увид у извештаје', link: '/report' });
-    }
-  }
+  ngOnInit(): void {}
 
   logout(): void {
     this.loggedService.logout();
