@@ -17,9 +17,8 @@ export class NavbarComponent implements OnInit {
   logoutIcon = faRightFromBracket;
 
   zigOptions: MenuItem[] = [
-    { name: 'zigOption 1', link: 'dummyLink1' },
-    { name: 'zigOption 2', link: 'dummyLink2' },
-    { name: 'zigOption 3', link: 'dummyLink3' },
+    { name: 'Pregled zahteva', link: 'b' },
+    { name: 'Pregled izvestaja', link: 'c' },
   ];  
 
   constructor(

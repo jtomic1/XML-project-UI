@@ -24,12 +24,25 @@
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="zig">Сервис за жигове</button>
       <mat-menu #zig="matMenu">
-        <button
-          *ngFor="let item of zigOptions"
-          mat-menu-item
-          [routerLink]="[item.link]"
-        >
-          {{ item.name }}
+        <button 
+        mat-menu-item
+        *ngIf="loggedService.user?.role === 'citizen'"  [routerLink]="['/newZigRequest']">
+        Поднеси захтев за признање жига
+      </button>
+      <button 
+      mat-menu-item
+      *ngIf="loggedService.user?.role === 'citizen'" [routerLink]="['/allZigRequests']">
+      Увид у захтеве
+      </button>
+      <button 
+      mat-menu-item
+      *ngIf="loggedService.user?.role === 'official'"  [routerLink]="['/allZigRequests']">
+      Увид у захтеве
+      </button>
+        <button 
+        mat-menu-item
+        *ngIf="loggedService.user?.role === 'official'"  [routerLink]="['/zigReports']">
+        Увид у извештаје
         </button>
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="autorska">

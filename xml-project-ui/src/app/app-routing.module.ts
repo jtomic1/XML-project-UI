@@ -23,8 +23,9 @@ const routes: Routes = [
   { path: 'patentRequest', component: ZahtevPatentComponent },
   { path: 'allPatents', component: PregledZahtevaComponent },
   { path: 'patent/:id', component: PregledZahtevaComponent },
-  { path: 'c', component: ZahtevZigComponent },
-  { path: 'b', component: UvidUZahteveComponent },
+  { path: 'newZigRequest', component: ZahtevZigComponent },
+  { path: 'allZigRequests', component: UvidUZahteveComponent },
+  { path: 'zigReports', component: IzvestajComponent },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
