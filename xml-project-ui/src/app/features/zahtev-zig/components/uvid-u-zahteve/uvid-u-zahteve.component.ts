@@ -7,6 +7,7 @@ import { ZigFactoryService } from '../../services/zig-factory/zig-factory.servic
 import { HelpService } from '../../services/help-service/help.service';
 import { MessageService, MessageType } from 'src/app/shared/services/message-service/message.service';
 import { Router } from '@angular/router';
+import { LoggedUserService } from 'src/app/shared/services/logged-user-service/logged-user.service';
 @Component({
   selector: 'app-uvid-u-zahteve',
   templateUrl: './uvid-u-zahteve.component.html',
@@ -30,10 +31,12 @@ export class UvidUZahteveComponent implements OnInit {
     private zigService:ZigService,
     private zigFactory:ZigFactoryService,
     private messageService: MessageService,
+    public loggedService: LoggedUserService,
     private helpService: HelpService,
     private router: Router,
   ) { }
 
+  
   ngOnInit(): void {
     this.getAllPending();
   }
@@ -144,7 +147,8 @@ export class UvidUZahteveComponent implements OnInit {
         trim: true,
         explicitArray: false,
       });
-      parser.parseString(res.toString(), (err, result) => {          
+      parser.parseString(res.toString(), (err, result) => {  
+        this.messageService.showMessage("Uspeno ste odbili.",MessageType.SUCCESS);          
           this.getAllPending();   
         });
     });
@@ -159,7 +163,8 @@ export class UvidUZahteveComponent implements OnInit {
         trim: true,
         explicitArray: false,
       });
-      parser.parseString(res.toString(), (err, result) => {          
+      parser.parseString(res.toString(), (err, result) => {    
+          this.messageService.showMessage("Uspeno ste odobrili.",MessageType.SUCCESS);      
           this.getAllPending();      
         });
     });
@@ -174,6 +179,7 @@ export class UvidUZahteveComponent implements OnInit {
       link.href = URL.createObjectURL(blob);
       link.download = 'file.html';
       link.click();
+      this.messageService.showMessage("Uspeno pruzimanje.",MessageType.SUCCESS);  
     });
   }
 
@@ -185,6 +191,7 @@ export class UvidUZahteveComponent implements OnInit {
       link.href = URL.createObjectURL(blob);
       link.download = 'file.pdf';
       link.click();
+      this.messageService.showMessage("Uspeno pruzimanje.",MessageType.SUCCESS);  
     });
 
   }
@@ -198,6 +205,7 @@ export class UvidUZahteveComponent implements OnInit {
       a.href = URL.createObjectURL(data);
       a.download = id + '.json';
       a.click();
+      this.messageService.showMessage("Uspeno pruzimanje.",MessageType.SUCCESS);  
     });
   }
   getRdf(index : number){
@@ -208,6 +216,7 @@ export class UvidUZahteveComponent implements OnInit {
       a.href = URL.createObjectURL(data);
       a.download = id + '.rdf';
       a.click();
+      this.messageService.showMessage("Uspeno pruzimanje.",MessageType.SUCCESS);  
     })
     
   }

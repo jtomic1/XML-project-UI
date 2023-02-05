@@ -7,7 +7,7 @@ padding-top: 15px;">
     align-items: center;
     " >
         <mat-radio-group [(ngModel)]="filter" (change)="filterChange()">
-            <mat-radio-button value="predati" >
+            <mat-radio-button value="predati" [checked]="true" >
                 Predati zahtevi
             </mat-radio-button>
             <mat-radio-button value="odobreni">
@@ -72,7 +72,7 @@ padding-top: 15px;">
                 <mat-card-actions>
                 
                     <div>
-                        <div *ngIf="appliedShow">
+                        <div *ngIf="appliedShow &&  loggedService.user?.role === 'official'" >
 
                             <button mat-raised-button color="warn" (click)="deny(i)"><mat-icon>clear</mat-icon>Одбиј</button>
                             <button mat-raised-button color="primary" (click)="approve(i)"><mat-icon>done</mat-icon>Прихвати</button>

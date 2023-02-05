@@ -86,7 +86,8 @@ export class ZigService {
   getHTMLFile(zahtevZaPriznanjeZiga : ZahtevZaPriznanjeZiga){
     const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
     headers.set("Accept","application/pdf");
-    const url = `${this.serviceUrl}/downloadRequestHTML`;
+    // const url = `${this.serviceUrl}/downloadRequestHTML`;
+    const url = `${this.serviceUrl}/downloadHTML`;
     let xml = this.helpService.getSendXML(zahtevZaPriznanjeZiga);
     console.log(xml);
     // let xml = "";
@@ -98,7 +99,8 @@ export class ZigService {
   getPDFFile(zahtevZaPriznanjeZiga : ZahtevZaPriznanjeZiga){
     const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
     headers.set("Accept","application/pdf");
-    const url = `${this.serviceUrl}/downloadRequestPDF`;
+    // const url = `${this.serviceUrl}/downloadRequestPDF`;
+    const url = `${this.serviceUrl}/downloadPDF`;
     let xml = this.helpService.getSendXML(zahtevZaPriznanjeZiga);
     console.log(xml);
     // let xml = "";
