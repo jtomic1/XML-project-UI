@@ -1,5 +1,5 @@
 import { TTipZiga } from "./TTipZiga";
-import { Znak } from "./Znak";
+import { Znak, ZnakSEND } from "./Znak";
 
 export interface OpisZiga {
 
@@ -7,3 +7,11 @@ export interface OpisZiga {
     znak:Znak;
     
 }
+
+export interface OpisZigaSEND {
+
+    tipZiga:TTipZiga;
+    znak:ZnakSEND;
+    
+}
+

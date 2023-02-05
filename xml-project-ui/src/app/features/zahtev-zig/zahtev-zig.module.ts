@@ -9,6 +9,7 @@ import { NincanskaClassificationComponent } from './components/nincanska-classif
 import { ZigPavoIOsnovComponent } from './components/zig-pavo-i-osnov/zig-pavo-i-osnov.component';
 import { UvidUZahteveComponent } from './components/uvid-u-zahteve/uvid-u-zahteve.component';
 import { FormsModule } from '@angular/forms';
+import { ZahtevViewComponent } from './components/zahtev-view/zahtev-view.component';
 
 
 
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     NincanskaClassificationComponent,
     ZigPavoIOsnovComponent,
     UvidUZahteveComponent,
+    ZahtevViewComponent,
   ],
   imports: [
     CommonModule,

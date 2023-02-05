@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ZahtevZaPriznanjeZiga } from '../../models/ZahtevZaPriznanjeZiga';
 import { HelpService } from '../help-service/help.service';
 import * as JsonToXML from "js2xmlparser";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,9 @@ export class ZigService {
   save(zahtevZaPriznanjeZiga: ZahtevZaPriznanjeZiga) {
     const headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
     const url = `${this.serviceUrl}/saveXML`;
-    let xml = this.helpService.createXML(zahtevZaPriznanjeZiga);
+    let xml = this.helpService.createXMLnew(zahtevZaPriznanjeZiga);
     console.log(xml);
-    // return this.http.post(url, xml, {headers: headers, responseType: 'text'});
+    return this.http.post(url, xml, {headers: headers, responseType: 'text'});
   }
   
   getByBrojPrijave(id: string) {
@@ -121,6 +122,14 @@ export class ZigService {
       params : {id: id},
       headers : new HttpHeaders().set('Content-Type', 'application/xml'),
       responseType: 'blob'
+    });
+  }
+
+  
+  zigSearch(query: string): Observable<any> {
+    let url = `${this.serviceUrl}/search/${query}`;
+    return this.http.get(url, {
+      responseType: 'text',
     });
   }
 

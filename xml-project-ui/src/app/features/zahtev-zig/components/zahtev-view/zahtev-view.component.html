@@ -1,0 +1,379 @@
+
+
+<style>
+    table{
+    padding-top: 50px;
+    margin-left: 15%;
+    width: 70%;
+    }
+    p{
+    width: 70%;
+    margin-left: 15%;
+    }
+
+    td{
+    border: 1pt solid black;
+    padding: 5px;
+    margin: 0;
+    }
+    .title{
+    padding-top: 50px;
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+    }
+</style>
+<div>
+    <button mat-button (click)="emit()"> Nazad </button>
+</div>
+<p class="title">
+    ZAHTEV! ZA PRIZANJE ZIGA<br />
+    Zavod za inktealnu svojinu,Knjeginja Ljubica 6, Beograd
+</p>
+<div>
+    <img src="assets/QRcode.png" style="width: 70px;
+    position: relative;
+    left: 47%;">
+</div>
+<table>
+
+    <tr>
+        <td colspan="23">
+            1. Podnosilac! prijave: ime i prezime/poslovno ime, ulica i broj, poštanski broj, mesto,
+            država prebivališta/sedišta ideeee li:
+        </td>
+    </tr>
+    <tr style="height: 100px;">
+        <td colspan="23">
+            <!-- {{zahtev!.podnosilac!.ime}}
+            {{zahtev!.podnosilac!.prezime}} , -->
+            {{zahtev!.podnosilac!.adresa.ulica}}
+            <!-- {{zahtev!.podnosilac!.adresa.broj}} -->
+            {{zahtev!.podnosilac!.adresa.postanski_broj}} ,
+            {{zahtev!.podnosilac!.adresa.drzava}}
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="7">
+            Telefon: {{zahtev!.podnosilac!.kontakt.telefon}}
+        </td>
+        <td colspan="9">
+            E-mail: {{zahtev!.podnosilac!.kontakt.email}}
+        </td>
+        <td colspan="9">
+            Faks: {{zahtev!.podnosilac!.kontakt.fax}}
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="23">
+            2. Punomoćnik: ime i prezime/poslovno ime, ulica i broj, poštanski broj, mesto, država
+            prebivališta/sedišta:
+        </td>
+    </tr>
+    <tr style="height: 100px;">
+        <td colspan="23">
+            <!-- {{zahtev!.punomocnik.ime}} -->
+            <!-- {{zahtev!.punomocnik.prezime}} , -->
+            {{zahtev!.punomocnik.adresa.ulica}}
+            <!-- {{zahtev!.punomocnik.adresa.broj}} -->
+            {{zahtev!.punomocnik.adresa.postanski_broj}} ,
+            {{zahtev!.punomocnik.adresa.drzava}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="7">
+            Telefon: {{zahtev!.podnosilac!.kontakt.telefon}}
+        </td>
+        <td colspan="9">
+            E-mail: {{zahtev!.podnosilac!.kontakt.email}}
+        </td>
+        <td colspan="9">
+            Faks: {{zahtev!.podnosilac!.kontakt.fax}}
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="23">
+            3. Podaci o zajedničkom predstavniku ako postoji više podnosilac!a prijave:
+        </td>
+    </tr>
+    <tr style="height: 100px;">
+        <td colspan="23">
+            /
+        </td>
+    </tr>
+    <tr>
+        <td colspan="7">
+            Telefon: {{zahtev!.podnosilac!.kontakt.telefon}}
+        </td>
+        <td colspan="9">
+            E-mail: {{zahtev!.podnosilac!.kontakt.email}}
+        </td>
+        <td colspan="9">
+            Faks: {{zahtev!.podnosilac!.kontakt.fax}}
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="11">
+            4. Prijava se podnosi za (upisati X):
+        </td>
+        <td rowspan="2" colspan="12">
+            v) izgled znaka:
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="3" >
+            a)
+        </td>
+        <td colspan="7">
+            individualni zig
+        </td>
+        <td colspan="3">
+
+            {{zahtev!.opisZiga!.tipZiga}}
+                X
+        </td>
+    </tr>
+    <tr>
+        <td colspan="7">kolektivni zig</td>
+        <td colspan="3">
+
+        </td>
+        <td colspan="12" rowspan="11">
+            {{zahtev!.opisZiga!.tipZiga}}
+                X
+        </td>
+    </tr>
+    <tr>
+        <td colspan="7">
+            zig generacije
+        </td>
+        <td colspan="3">
+            {{zahtev!.opisZiga!.tipZiga}}
+                X
+
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="5">
+            b)
+        </td>
+        <td colspan="7">
+            verbalni znak
+        </td>
+        <td colspan="3">
+                                            {{zahtev!.opisZiga!.znak.vrstaZnaka}}
+                                                X
+            
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="7">
+        grafički znak; boju, kombinaciju boja
+        </td>
+        <td colspan="3">
+                                            {{zahtev!.opisZiga!.znak.vrstaZnaka}}
+                                                X
+            
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="7">
+            kombinovani znak
+        </td>
+        <td colspan="3">
+                                            {{zahtev!.opisZiga!.znak.vrstaZnaka}}
+                                                X
+            
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="7">
+            trodimenzionalni znak
+        </td>
+        <td colspan="3">
+                                                {{zahtev!.opisZiga!.znak.vrstaZnaka}}
+                                                    X
+                
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="7">
+            druga vrska znaka
+        </td>
+        <td colspan="3">
+                                            {{zahtev!.opisZiga!.znak.vrstaZnaka}}
+                                                X
+            
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="11">
+            5. Naznačenje boje, odnosno boja iz kojih se znak
+            sastoji:
+                                    {{zahtev!.opisZiga!.znak.bojeZnaka}}
+                                        
+                                    
+        </td>
+    </tr>
+    <tr>
+        <td colspan="11">
+            6. Transliteracija znaka*:{{zahtev!.opisZiga!.znak.transliteracija}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="11">
+            7. Prevod znaka*:{{zahtev!.opisZiga!.znak.prevod}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="11">
+            8. Opis znaka:zahtev!{{zahtev!.opisZiga!.znak.opisZnaka}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="23">
+            9. Zatrazeni brojeve klasa robe i usluga prema Ničanskoj klasifikaciji :
+        </td>
+    </tr>
+    <tr>
+        {{zahtev!.brojeviKlasaRobeUsluga.broj}}
+            <td>
+                
+            </td>
+        
+    </tr>
+    <tr>
+        <td colspan="23">
+            10. Zatraženo pravo prvenstva i osnov:<br />
+            Pravo:{{zahtev!.zatrazenoPravoPrvenstva.pravo}}<br />
+            Osnov:{{zahtev!.zatrazenoPravoPrvenstva.osnov}}
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>
+            11. Plaćene takse: Dinara Potpis podnosioca zahtev!a
+        </td>
+        <td>
+            Dinara
+        </td>
+        <td rowspan="4">
+            Potpis podnosioca zahtev!a<br />
+            * Pečat, ukoliko je potreban u skladu sa zakonom
+        </td>
+    </tr>
+    <tr>
+        <td>
+            a) osnovna taksa
+        </td>
+        <td>
+            {{zahtev!.placanje.onsovnaTaksa}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            b) za________klasa
+            v) za grafičko rešenje
+        </td>
+        <td>
+            {{zahtev!.placanje.grafickoResenje}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            UKUPNO
+        </td>
+        <td>
+            {{zahtev!.placanje.ukupno}}
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td colspan="3">
+            POPUNjAVA ZAVOD
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            Prilozi uz zahtev!:
+        </td>
+        <td rowspan="9">
+            Broj prijave žiga:<br />
+            
+            <br />Datum podnošenja:
+            
+
+        </td>
+    </tr>
+    <tr>
+        <td>Primerak znaka </td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Spisak robe i usluga** </td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Punomoćje  </td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Generalno punomoćje ranije priloženo </td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Punomoćje će biti naknadno dostavljeno  </td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Opšti akt o kolektivnom žigu/žigu garancije  </td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Dokaz o pravu prvenstva</td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>Dokaz o uplati takse </td>
+        <td>
+
+        </td>
+    </tr>
+</table>
+
+<p margin-top="150px">
+    **Uz zaokruživanje broja klase robe/usluga Ničanske klasifikacije u rubrici 9 dostavlja se i spisak koji
+    sadrži konkretne nazive robe koju podnosilac! prijave proizvodi, odnosno usluga koje pruža. U cilju
+    određenja obima zaštite koja se stiče žigom, spisak treba da sadrži jasne i precizne nazive robe i
+    usluga. U tu svrhu mogu se koristiti pojmovi iz detaljne Liste roba i usluga ili MGS Manager aplikacije,
+    dostupnih na sajtu Zavoda. Ukoliko se u spisak unose termini iz Liste klasa Ničanske klasifikacije,
+    zaštita obuhvata samo tako imenovane, konkretne robe/usluge u njihovom jasnom i nedvosmislenom
+    značenju.
+</p>

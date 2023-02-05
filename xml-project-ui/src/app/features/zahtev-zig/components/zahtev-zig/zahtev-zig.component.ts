@@ -171,28 +171,38 @@ export class ZahtevZigComponent implements OnInit {
   }
 
   sendRequestForZig(){
-    // let zigZahtev = this.helpService.getZahtevFromFormGroup(this.form);
-    // this.zigService.save(zigZahtev).subscribe({
-    //   next: (res) => {
-    //     console.log(res);
-    //     const parser = new xml2js.Parser({
-    //       strict: true,
-    //       trim: true,
-    //       explicitArray: false,
-    //     });
-    //     parser.parseString(res, (error, result) => {
-    //       this.messageService.showMessage(res , MessageType.SUCCESS);
-    //     });
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //     const parser = new xml2js.Parser({ strict: true, trim: true });
-    //     parser.parseString(err.message, (error, result) => {
-    //       console.log(error);
-    //       console.log(result);
-    //       this.messageService.showMessage(result, MessageType.ERROR);
-    //     });
-    //   },
-    // });;
+
+    if(this.form.valid || true){
+
+      let zigZahtev = this.helpService.getZahtevFromFormGroup(this.form);
+      this.zigService.save(zigZahtev).subscribe({
+        next: (res) => {
+          console.log(res);
+          const parser = new xml2js.Parser({
+            strict: true,
+            trim: true,
+            explicitArray: false,
+          });
+          parser.parseString(res, (error, result) => {
+            // this.messageService.showMessage(res , MessageType.SUCCESS);
+            let brZahteva = res.substring(res.length - 19 ,res.length-1);
+            this.messageService.showMessage("Uspesno ste podneli zahtev, on je evidentiran pod brojem: \n "+ brZahteva,MessageType.SUCCESS)
+          });
+        },
+        error: (err) => {
+          console.log(err);
+          const parser = new xml2js.Parser({ strict: true, trim: true });
+          parser.parseString(err.message, (error, result) => {
+            console.log(error);
+            console.log(result);
+            this.messageService.showMessage(result, MessageType.ERROR);
+          });
+        },
+      });;
+    }
+    else{
+      this.messageService.showMessage("Molimo Vas unesite adekvatne podatke",MessageType.ERROR);
+    }
   }
+  
 }

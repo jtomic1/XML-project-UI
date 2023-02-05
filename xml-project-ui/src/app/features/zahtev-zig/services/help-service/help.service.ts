@@ -9,8 +9,8 @@ import { Kontakt } from '../../models/Kontak';
 import { TLice } from '../../models/TLice';
 import { TFizickoLice } from '../../models/TFizickoLice';
 import { TPravnoLice } from '../../models/TPravnoLice';
-import { Znak } from '../../models/Znak';
-import { OpisZiga } from '../../models/Opis';
+import { Znak, ZnakSEND } from '../../models/Znak';
+import { OpisZiga, OpisZigaSEND } from '../../models/Opis';
 import { BrojeviKlasaRobeUsluga } from '../../models/BrojeviKlasaRobeUsluga';
 import { ZatrazenoPravoPrvenstva } from '../../models/ZatrazenoPravoPrvenstva';
 import { Prilozi } from '../../models/Pirlozi';
@@ -47,8 +47,10 @@ export class HelpService {
     let brZahteva = zahtevZaPriznanjeZiga.brojZahteva;
     delete testWithoutBrojZahteva.brojZahteva;
 
+    let sendOBJ = this.getSendObj(zahtevZaPriznanjeZiga);
+    delete sendOBJ.brojZahteva;
 
-    let xml = JsonToXML.parse("zahtev_za_priznanje_ziga", testWithoutBrojZahteva);
+    let xml = JsonToXML.parse("zahtev_za_priznanje_ziga", sendOBJ);
     let position = 47;
     let text = ' brojZahteva="'+brZahteva+'"\
                 datumZahteva="'+this.datepipe.transform(new Date(), 'dd.MM.yyyy.')+'"'
@@ -64,10 +66,37 @@ export class HelpService {
     delete testWithoutBrojZahteva.brojZahteva;
     
     let sendOBJ = this.getSendObj(zahtevZaPriznanjeZiga);
+    delete sendOBJ.brojZahteva;
 
     let xml = JsonToXML.parse("zahtev_za_priznanje_ziga", sendOBJ);
+    let text2 = "<status>PREDATO</status>";
     let position = 47;
+    
+    xml = [xml.slice(0, position +2 ), text2, xml.slice(position+2)].join('');
+    
     let text = ' brojZahteva="'+brZahteva+'"\
+                datumZahteva="'+this.datepipe.transform(new Date(), 'dd.MM.yyyy.')+'"'
+        
+    xml = [xml.slice(0, position), text, xml.slice(position)].join('');
+    
+    console.log(xml);
+    return xml;
+
+  }
+  createXMLnew( zahtevZaPriznanjeZiga : ZahtevZaPriznanjeZiga){
+    let testWithoutBrojZahteva = {...zahtevZaPriznanjeZiga};
+    let brZahteva = zahtevZaPriznanjeZiga.brojZahteva;
+    delete testWithoutBrojZahteva.brojZahteva;
+    
+    let sendOBJ = this.getSendObj(zahtevZaPriznanjeZiga);
+    delete sendOBJ.brojZahteva;
+    let text2 = "<status>PREDATO</status>";
+    let position = 47;
+    let xml = JsonToXML.parse("zahtev_za_priznanje_ziga", sendOBJ);
+    
+    xml = [xml.slice(0, position +2 ), text2, xml.slice(position+2)].join('');
+
+    let text = ' brojZahteva="Z-'+this.datepipe.transform(new Date() , 'yyyyddMMHHmmss')+'"\
                 datumZahteva="'+this.datepipe.transform(new Date(), 'dd.MM.yyyy.')+'"'
                 
     xml = [xml.slice(0, position), text, xml.slice(position)].join('');
@@ -77,10 +106,27 @@ export class HelpService {
   }
 
   getSendObj(zahtevZaPriznanjeZiga:ZahtevZaPriznanjeZiga):ZahtevZaPriznanjeZigaSEND{
+    
+    let znakSEND:ZnakSEND={
+      izgledZnaka: zahtevZaPriznanjeZiga.opisZiga.znak.izgledZnaka,
+      vrstaZnaka:  zahtevZaPriznanjeZiga.opisZiga.znak.vrstaZnaka,
+      bojeZnaka:  {boja:zahtevZaPriznanjeZiga.opisZiga.znak.bojeZnaka},
+      transliteracija:  zahtevZaPriznanjeZiga.opisZiga.znak.transliteracija,
+      prevod:  zahtevZaPriznanjeZiga.opisZiga.znak.prevod,
+      opisZnaka:  zahtevZaPriznanjeZiga.opisZiga.znak.opisZnaka
+    }
+    
+    let opisZigaSEND:OpisZigaSEND={
+      tipZiga: zahtevZaPriznanjeZiga.opisZiga.tipZiga,
+      znak: znakSEND
+    }
+
+
+
     let zahtevZaPriznanjeZigaSEND: ZahtevZaPriznanjeZigaSEND={
       podnosilac: zahtevZaPriznanjeZiga.podnosilac,
       punomocnik: zahtevZaPriznanjeZiga.punomocnik,
-      opisZiga: zahtevZaPriznanjeZiga.opisZiga,
+      opisZiga: opisZigaSEND,
       brojeviKlasaRobeUsluga: {broj:zahtevZaPriznanjeZiga.brojeviKlasaRobeUsluga},
       zatrazenoPravoPrvenstva: zahtevZaPriznanjeZiga.zatrazenoPravoPrvenstva,
       placanje: zahtevZaPriznanjeZiga.placanje,
@@ -96,12 +142,12 @@ export class HelpService {
 
   createAdressaFormGroup():FormGroup{
     let ret = new FormGroup({
-      drzava: new FormControl(''),
-      mesto: new FormControl('' , [
+      drzava: new FormControl('Srbjia'),
+      mesto: new FormControl('Mali Zvornik' , [
       ]),
-      ulica: new FormControl('' , [
+      ulica: new FormControl('Kralja Petra' , [
       ]),
-      postanski_broj: new FormControl('')
+      postanski_broj: new FormControl('15318')
     });
 
     return ret;
@@ -119,11 +165,11 @@ export class HelpService {
   
   createContactFormGroup():FormGroup{
     let ret = new FormGroup({
-      telefon: new FormControl('',Validators.required),
-      email: new FormControl('' , [
+      telefon: new FormControl('0644281080',Validators.required),
+      email: new FormControl('mladengajic00@gamil.com' , [
         Validators.required
       ]),
-      fax: new FormControl('')
+      fax: new FormControl('131352156')
     });
 
     return ret;
@@ -141,13 +187,13 @@ export class HelpService {
   
   createLiceFormGroup():FormGroup{
     let ret = new FormGroup({
-      ime: new FormControl('',[
+      ime: new FormControl('Mladen',[
         Validators.required,
       ]),
-      prezime: new FormControl('' , [
+      prezime: new FormControl('Gajic' , [
         Validators.required,
       ]),
-      naziv: new FormControl('' , [
+      naziv: new FormControl('Tehnohem' , [
         Validators.required
       ]),
       adresa: this.createAdressaFormGroup(),
@@ -171,20 +217,20 @@ export class HelpService {
   createZnakFormGroup():FormGroup{
     
     let ret = new FormGroup({
-      transliteracija: new FormControl('',[
+      transliteracija: new FormControl('translitreracija sa nemackog',[
         Validators.required,
       ]),
-      prevod: new FormControl('' , [
+      prevod: new FormControl(' prevod sa rumunskog sadas' , [
         Validators.required,
       ]),
       izgled_znaka: new FormControl('' , [
         Validators.required
       ]),
-      vrsta_znaka: new FormControl('' , [
+      vrsta_znaka: new FormControl('1' , [
         Validators.required
       ]),
-      boje_znaka: new FormControl('' ),
-      opis_znaka: new FormControl('' , [
+      boje_znaka: new FormControl('boja,red' ),
+      opis_znaka: new FormControl('Ovaj zanak predstavlja globalno obelezje za taxi ' , [
         Validators.required
       ]),
 
@@ -222,7 +268,7 @@ export class HelpService {
     
     let ret = new FormGroup({
       znak: this.createZnakFormGroup(),
-      tip_ziga: new FormControl('')
+      tip_ziga: new FormControl('1')
 
     });
 
@@ -242,7 +288,7 @@ export class HelpService {
   createBrojeviKlasaRobeUsluga():FormGroup{
 
     let ret = new FormGroup({
-      broj: new FormControl('')
+      broj: new FormControl('1,2,3')
     });
 
     return ret;
@@ -264,8 +310,8 @@ export class HelpService {
   createZatrazenoPravoPrvenstva():FormGroup{
     
     let ret = new FormGroup({
-      pravo: new FormControl(''),
-      osnov: new FormControl('')
+      pravo: new FormControl('Pravo iz clana 55 odeljaka 654'),
+      osnov: new FormControl('na osnovu osnova Osnovne Skole Branko Radicevic')
     });
 
     return ret;
@@ -284,11 +330,11 @@ export class HelpService {
   createPlacanjeFormGroup():FormGroup{
     
     let ret = new FormGroup({
-      uukupno: new FormControl('',[
+      ukupno: new FormControl('1500',[
       ]),
-      onsovna_taksa: new FormControl('' , [
+      onsovna_taksa: new FormControl('10000' , [
       ]),
-      graficko_resenje: new FormControl('' , [
+      graficko_resenje: new FormControl('5000' , [
       ])
 
     });
