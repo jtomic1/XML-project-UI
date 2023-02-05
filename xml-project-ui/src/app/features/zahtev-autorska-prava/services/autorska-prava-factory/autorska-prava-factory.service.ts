@@ -153,29 +153,29 @@ export class AutorskaPravaFactoryService {
 
   getVrstaDela(selectedType: number): string {
     if (selectedType == 1) {
-      return 'Књижевно дело';
+      return 'Knjizevno delo';      
     } else if (selectedType == 2) {
-      return 'Музичко дело';
+      return 'Muzicko delo';    
     } else if (selectedType == 3) {
-      return 'Ликовно дело';
+      return 'Likovno delo';      
     } else if (selectedType == 4) {
-      return 'Рачунарски програм';
+      return 'Racunarski program';      
     } else {
-      return 'Друга врста ауторског дела';
+      return 'Druga vrsta autorkog dela';      
     }
   }
 
   getFormaZapisa(selectedForma: number): string {
     if (selectedForma == 1) {
-      return 'Штампани текст';
+      return 'Stampani tekst';
     } else if (selectedForma == 2) {
-      return 'Оптички диск';
+      return 'Opticki disk';
     } else if (selectedForma == 3) {
-      return 'Писано';
+      return 'Pisano';
     } else if (selectedForma == 4) {
-      return 'Осликано';
+      return 'Oslikano';
     } else {
-      return 'Друга форма записа ауторског дела';
+      return 'Druga forma zapisa autorkog dela';
     }
   }
 
@@ -183,8 +183,8 @@ export class AutorskaPravaFactoryService {
     var autor: TAutor;
     if (isPodnosilacAutor) {
       autor = {
-        ime: 'Подносилац је аутор',
-        prezime: 'овог дела',        
+        ime: 'Podnosilac je autor',
+        prezime: 'ovog dela',        
       } 
     } else {
       autor = {
@@ -249,8 +249,8 @@ export class AutorskaPravaFactoryService {
     var autor: TAutor;
     if (selectedAutorType == 3) {
       autor = {
-        ime: 'Аутор овог дела',
-        prezime: 'је анониман',        
+        ime: 'Autor ovog dela',
+        prezime: 'je anoniman',        
       } 
     } else {
       autor = {
@@ -264,9 +264,9 @@ export class AutorskaPravaFactoryService {
 
   getRadniOdnos(selectedRadniOdnos: number): string {    
     if (selectedRadniOdnos == 1) {
-      return 'Ауторско дело није створено у радном односу';
+      return 'Autorsko delo nije stvoreno u radnom odnosu';
     } else {
-      return 'Ауторско дело јесте створено у радном односу';
+      return 'Autorsko delo jeste stvoreno u radnom odnosu';      
     }
   }
 

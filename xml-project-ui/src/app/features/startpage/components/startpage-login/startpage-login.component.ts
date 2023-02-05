@@ -42,22 +42,20 @@ export class StartpageLoginComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
-          console.log(res);
           const parser = new xml2js.Parser({
             strict: true,
             trim: true,
             explicitArray: false,
           });
           parser.parseString(res, (error, result) => {
-            this.loggedUserService.setUserData(res);
+            console.log(result);
+            this.loggedUserService.setUserData(result.UserTokenState);
             this.redirectLoggedUser();
           });
         },
         error: (err) => {
           const parser = new xml2js.Parser({ strict: true, trim: true });
           parser.parseString(err.error, (error, result) => {
-            console.log(error);
-            console.log(result);
             this.messageService.showMessage(result.error, MessageType.ERROR);
           });
         },

@@ -7,7 +7,7 @@
         <button
           *ngFor="let item of patentOptions"
           mat-menu-item
-          [routerLink]="[item]"
+          [routerLink]="[item.link]"
         >
           {{ item.name }}
         </button>
@@ -17,7 +17,7 @@
         <button
           *ngFor="let item of zigOptions"
           mat-menu-item
-          [routerLink]="[item]"
+          [routerLink]="[item.link]"
         >
           {{ item.name }}
         </button>
@@ -29,7 +29,7 @@
         <button
           *ngFor="let item of autorskaOptions"
           mat-menu-item
-          [routerLink]="[item]"
+          [routerLink]="[item.link]"
         >
           {{ item.name }}
         </button>

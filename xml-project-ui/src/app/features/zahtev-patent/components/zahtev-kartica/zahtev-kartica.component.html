@@ -1,0 +1,198 @@
+<mat-card [style]="'background-color: ' + getStyleFromInput()">
+  <mat-card class="item">
+    <mat-card-header>
+      <mat-card-title>Подаци о Захтеву</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        <strong>Број Пријаве:</strong> {{ zahtev.podaciZavod!.brojPrijave }}
+      </p>
+      <p>
+        <strong>Датум Подношења:</strong>
+        {{ convertTimestampToDate(zahtev.podaciZavod!.datumPodnosenja) }}
+      </p>
+      <p>
+        <strong>Статус Захтева:</strong> {{ zahtev.podaciZavod!.statusZahteva }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="item">
+    <mat-card-header>
+      <mat-card-title>Назив Проналаска</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p><strong>Српски:</strong> {{ zahtev.nazivPronalaska.nazivSrpski }}</p>
+      <p>
+        <strong>Енглески:</strong>
+        {{ zahtev.nazivPronalaska.nazivEngleski }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="item">
+    <mat-card-header>
+      <mat-card-title>Подносилац Пријаве</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p *ngIf="zahtev.podnosilacPrijave.poslovnoIme === ''">
+        <b>Физичко лице:</b> {{ zahtev.podnosilacPrijave.fizickoLice.ime }}
+        {{ zahtev.podnosilacPrijave.fizickoLice.prezime }}
+      </p>
+      <p *ngIf="zahtev.podnosilacPrijave.poslovnoIme !== ''">
+        <b>Пословно име:</b> {{ zahtev.podnosilacPrijave.poslovnoIme }}
+      </p>
+      <p>
+        <b>Локација:</b> {{ zahtev.podnosilacPrijave.lokacija.ulica }}&nbsp;
+        {{ zahtev.podnosilacPrijave.lokacija.broj }},
+        {{ zahtev.podnosilacPrijave.lokacija.mesto }},
+        {{ zahtev.podnosilacPrijave.lokacija.drzava }}
+      </p>
+      <p>
+        <b>E-маил:</b>
+        {{ zahtev.podnosilacPrijave.kontakt.email }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card
+    *ngIf="
+      zahtev.podaciOPronalazacu !== '' &&
+      zahtev.podaciOPronalazacu.pronalazacNaveden === 'true'
+    "
+    class="item"
+  >
+    <mat-card-header>
+      <mat-card-title>Проналазач</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>
+        <b>Физичко лице:</b>
+        {{ zahtev.podaciOPronalazacu.pronalazac.fizickoLice.ime }}
+        {{ zahtev.podaciOPronalazacu.pronalazac.fizickoLice.prezime }}
+      </p>
+      <p>
+        <b>Локација:</b>
+        {{ zahtev.podaciOPronalazacu.pronalazac.lokacija.ulica }}&nbsp;
+        {{ zahtev.podaciOPronalazacu.pronalazac.lokacija.broj }},
+        {{ zahtev.podaciOPronalazacu.pronalazac.lokacija.mesto }},
+        {{ zahtev.podaciOPronalazacu.pronalazac.lokacija.drzava }}
+      </p>
+      <p>
+        <b>E-маил:</b>
+        {{ zahtev.podaciOPronalazacu.pronalazac.kontakt.email }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="showPunomocnik()" class="item">
+    <mat-card-header>
+      <mat-card-title>Пуномоћник</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p *ngIf="zahtev.punomocnik.poslovnoIme === ''">
+        <b>Физичко лице:</b> {{ zahtev.punomocnik.fizickoLice.ime }}
+        {{ zahtev.punomocnik.fizickoLice.prezime }}
+      </p>
+      <p *ngIf="zahtev.podnosilacPrijave.poslovnoIme !== ''">
+        <b>Пословно име:</b> {{ zahtev.punomocnik.poslovnoIme }}
+      </p>
+      <p>
+        <b>Локација:</b> {{ zahtev.punomocnik.adresa.ulica }}&nbsp;
+        {{ zahtev.punomocnik.adresa.broj }},
+        {{ zahtev.punomocnik.adresa.mesto }}
+      </p>
+      <p>
+        <b>E-маил:</b>
+        {{ zahtev.punomocnik.kontakt.email }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="item">
+    <mat-card-header>
+      <mat-card-title>{{ getAdresaTitle() }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngIf="zahtev.adresaZaDostavljanje !== ''">
+        <p>
+          <b>Адреса:</b> {{ zahtev.adresaZaDostavljanje.ulica }}&nbsp;
+          {{ zahtev.adresaZaDostavljanje.broj }},
+          {{ zahtev.adresaZaDostavljanje.mesto }}
+        </p>
+      </div>
+      <div>
+        <p>
+          {{ getNacinDostave() }}
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card
+    class="item"
+    *ngIf="
+      zahtev.dopuna.dopunskaPrijava === 'true' ||
+      zahtev.dopuna.izdvojenaPrijava === 'true'
+    "
+  >
+    <mat-card-header>
+      <mat-card-title>Допуна</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p><strong>Тип допуне: </strong> {{ getTipDopune() }}</p>
+      <p>
+        <strong>Број пријаве: </strong>
+        <a [routerLink]="['/patent/' + zahtev.dopuna.brojOsnovnePrijave]">{{
+          zahtev.dopuna.brojOsnovnePrijave
+        }}</a>
+      </p>
+      <p>
+        <strong>Датум подношења: </strong>
+        {{ convertTimestampToDate(zahtev.dopuna.datumOsnovnePrijave) }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="item" *ngIf="zahtev.priznanjePravaPrvenstva !== ''">
+    <mat-card-header>
+      <mat-card-title>Признања Права Првенства</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <table>
+        <thead>
+          <tr>
+            <th>Датум подношења</th>
+            <th>Број пријаве</th>
+            <th>Двословна ознака</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of zahtev.priznanjePravaPrvenstva.detaljiRanijePrijave
+            "
+          >
+            <td>{{ convertTimestampToDate(item.datumPodnosenja) }}</td>
+            <td>
+              <a [routerLink]="['/patent/' + item.brojPrijave]">{{
+                item.brojPrijave
+              }}</a>
+            </td>
+            <td>{{ item.dvoslovnaOznaka }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="item action-bar" *ngIf="showActionBar">
+    <button mat-raised-button color="primary">Test 1</button>
+    <button mat-raised-button color="primary">Test 1</button>
+  </mat-card>
+</mat-card>

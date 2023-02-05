@@ -1,0 +1,23 @@
+<mat-card style="background-color: #673ab7">
+  <ng-container *ngFor="let prijava of formArray.controls; let i = index">
+    <mat-card [ngStyle]="{ 'margin-top': i !== 0 ? '16px' : '0' }">
+      <app-ranija-prijava
+        [form]="getFormGroup(i.toString())"
+      ></app-ranija-prijava>
+      <mat-divider inset></mat-divider>
+      <button mat-raised-button color="primary" (click)="deletePrijava(i)">
+        Обриши пријаву
+      </button>
+    </mat-card>
+  </ng-container>
+  <div>
+    <button
+      mat-raised-button
+      color="basic"
+      [ngStyle]="{ 'margin-top': formArray.length !== 0 ? '16px' : '0' }"
+      (click)="addPrijava()"
+    >
+      Додај нову пријаву
+    </button>
+  </div>
+</mat-card>
