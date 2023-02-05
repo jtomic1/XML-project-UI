@@ -4,12 +4,22 @@
     <span *ngIf="loggedService.isTokenPresent">
       <button mat-button [matMenuTriggerFor]="patent">Сервис за патенте</button>
       <mat-menu #patent="matMenu">
+        <button mat-menu-item [routerLink]="['/allPatents']">
+          Преглед захтева
+        </button>
         <button
-          *ngFor="let item of patentOptions"
           mat-menu-item
-          [routerLink]="[item.link]"
+          *ngIf="loggedService.user?.role === 'citizen'"
+          [routerLink]="['/patentRequest']"
         >
-          {{ item.name }}
+          Поднеси захтев
+        </button>
+        <button
+          mat-menu-item
+          *ngIf="loggedService.user?.role === 'official'"
+          [routerLink]="['/allPatents']"
+        >
+          Преглед извештаја
         </button>
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="zig">Сервис за жигове</button>
