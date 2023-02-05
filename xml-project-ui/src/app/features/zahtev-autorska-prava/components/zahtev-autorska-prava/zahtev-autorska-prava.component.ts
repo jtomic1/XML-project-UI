@@ -8,6 +8,7 @@ import { AutorksaPravaFormValidatorService } from '../../services/autorska-prava
 import { AutorskaPravaService } from '../../services/autorska-prava-service/autorska-prava.service';
 import * as xml2js from 'xml2js';
 import { ZahtevDTO } from '../../model/ZahtevDTO';
+import { MessageService, MessageType } from 'src/app/shared/services/message-service/message.service';
 
 @Component({
   selector: 'app-zahtev-autorska-prava',
@@ -50,8 +51,22 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
     private formGenerator: AutorskaPravaFormGeneratorService,
     private formValidator: AutorksaPravaFormValidatorService,
     private factory: AutorskaPravaFactoryService,
-    private autorskaPravaService: AutorskaPravaService
+    private autorskaPravaService: AutorskaPravaService,
+    private messageService: MessageService
   ) {}
+
+  resetForms() {
+    this.individualForm = this.formGenerator.getIndividualForm();
+    this.legalEntityForm = this.formGenerator.getLegalEntityForm();
+    this.pseudonimForm = this.formGenerator.getPseudonimForm();
+    this.punomocnikForm = this.formGenerator.getPunomocnikForm();
+    this.titleForm = this.formGenerator.getTitleForm();
+    this.adaptationForm = this.formGenerator.getAdaptationForm();
+    this.autorAliveForm = this.formGenerator.getAutorAliveForm();
+    this.autorDeadForm = this.formGenerator.getAutorDeadForm();
+    this.useCaseForm = this.formGenerator.getUseCaseForm();
+    this.descriptionForm = this.formGenerator.getDescriptionForm();
+  }
 
   ngOnInit(): void {}
 
@@ -194,17 +209,9 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
       var obrazac: ObrazacA1 = this.generateObrazac();
       this.autorskaPravaService.save(obrazac.zahtev)
         .subscribe((res: any) => {
-          console.log(res);
+          this.messageService.showMessage('Захтев је успешно поднет!', MessageType.SUCCESS);
+          this.resetForms();
         });
     }
   }
-
-  // this.autorskaPravaService.get('A-20230201115724').subscribe((res: any) => {
-  //   const parser = new xml2js.Parser({strict: true, trim: true});
-  //   parser.parseString(res.toString(), (err, result) => {
-  //       console.log(result);
-  //       var zahtev: ZahtevDTO = this.factory.getZahtevDTO(result.ObrazacA1.zahtev[0]);
-  //       console.log(zahtev);
-  //     });
-  // });
 }

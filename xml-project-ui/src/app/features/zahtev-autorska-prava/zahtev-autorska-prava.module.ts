@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { PrikazZahtevaComponent } from './components/prikaz-zahteva/prikaz-zahteva.component';
 import { DenyDialogComponent } from './components/dialogs/deny-dialog/deny-dialog.component';
 import { PrikazOdobrenihComponent } from './components/prikaz-odobrenih/prikaz-odobrenih.component';
+import { IzvestajComponent } from './components/izvestaj/izvestaj.component';
 
 
 
@@ -16,7 +17,8 @@ import { PrikazOdobrenihComponent } from './components/prikaz-odobrenih/prikaz-o
     ZahtevAutorskaPravaComponent,
     PrikazZahtevaComponent,
     DenyDialogComponent,
-    PrikazOdobrenihComponent
+    PrikazOdobrenihComponent,
+    IzvestajComponent
   ],
   imports: [
     CommonModule,

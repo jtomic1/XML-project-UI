@@ -37,8 +37,25 @@ export class AutorskaPravaService {
     });
   }
 
+  getAllApproved() {
+    const url = `${environment.aServiceUrl}/getAllApproved`;
+    return this.http.get(url, {
+      headers: new HttpHeaders().set('Content-Type', 'application/xml'),
+      responseType: 'text',
+    });
+  }
+
   searchText(query: string) {
     const url = `${environment.aServiceUrl}/search`;
+    return this.http.get(url, {
+      params: { query: query },
+      headers: new HttpHeaders().set('Content-Type', 'application/xml'),
+      responseType: 'text',
+    });
+  }
+
+  searchApproved(query: string) {
+    const url = `${environment.aServiceUrl}/searchApproved`;
     return this.http.get(url, {
       params: { query: query },
       headers: new HttpHeaders().set('Content-Type', 'application/xml'),
@@ -108,5 +125,12 @@ export class AutorskaPravaService {
       params: {id: id},
       responseType: 'blob'
     });
+  }
+
+  getReport() {
+    const url = `${environment.aServiceUrl}/getReport`;
+    return this.http.get(url, {
+      responseType: 'blob'
+    })
   }
 }

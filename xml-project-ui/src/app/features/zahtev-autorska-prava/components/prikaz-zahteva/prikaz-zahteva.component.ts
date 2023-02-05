@@ -52,6 +52,7 @@ export class PrikazZahtevaComponent implements OnInit {
      this.getAllPending();
      console.log(this.loginService.user?.name);
      console.log(this.loginService.user?.surname);
+     console.log(this.loginService.user?.role);
   }
 
   generateTextSearchForm(): FormGroup {
@@ -148,8 +149,8 @@ export class PrikazZahtevaComponent implements OnInit {
     var datum: string = date.getDate() + '.' + (date.getMonth()+1) + '.' + date.getFullYear() + '.'; 
     var resenje: Resenje = {
       id: id,
-      ime: '', //this.loginService.user?.name,
-      prezime: '', // this.loginService.user?.surname,
+      ime: this.loginService.user?.name,
+      prezime: this.loginService.user?.surname,
       obrazlozenje: '',
       status: 'APPROVED',
       datum: datum

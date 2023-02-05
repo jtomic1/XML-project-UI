@@ -16,36 +16,36 @@ import {
 export class NavbarComponent implements OnInit {
   logoutIcon = faRightFromBracket;
 
+  get patentOptions(): MenuItem[] {
+    let ret = [{ name: 'Преглед захтева', link: '/allPatents' }];
+    if (this.loggedService.user?.role === 'citizen')
+      ret.push({
+        name: 'Поднеси захтев',
+        link: '/patentRequest',
+      });
+    else {
+      ret.push({
+        name: 'Увид у извештаје',
+        link: '/allPatents',
+      });
+    }
+    return ret;
+  }
+  
   // name na cirilici ako cemo tako ceo projekat
-  patentOptions: MenuItem[] = [];
 
   zigOptions: MenuItem[] = [
     { name: 'zigOption 1', link: 'dummyLink1' },
     { name: 'zigOption 2', link: 'dummyLink2' },
     { name: 'zigOption 3', link: 'dummyLink3' },
-  ];
-  autorskaOptions: MenuItem[] = [
-    { name: 'autorskaOption 1', link: 'dummyLink1' },
-    { name: 'autorskaOption 2', link: 'dummyLink2' },
-    { name: 'autorskaOption 3', link: 'dummyLink3' },
-  ];
+  ];  
 
   constructor(
     public loggedService: LoggedUserService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.patentOptions = [{ name: 'Преглед захтева', link: '/allPatents' }];
-    if (this.loggedService.user?.role === 'client')
-      this.patentOptions.push({
-        name: 'Поднеси захтев',
-        link: '/patentRequest',
-      });
-    else {
-      this.patentOptions.push({ name: 'Увид у извештаје', link: '/report' });
-    }
-  }
+  ngOnInit(): void { }
 
   logout(): void {
     this.loggedService.logout();
