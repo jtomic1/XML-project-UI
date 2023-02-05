@@ -1,0 +1,36 @@
+<div class="main-container">
+  <h1 style="font-size: 42px; margin-top: 10px">Преглед захтева</h1>
+
+  <div
+    [formGroup]="form"
+    style="
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+    *ngIf="showPretraga"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Претрага</mat-label>
+      <input matInput formControlName="pretraga" />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      style="margin-left: 8px; margin-bottom: 21px; display: block"
+      (click)="search()"
+      [disabled]="form.controls['pretraga'].value === ''"
+    >
+      Претражи
+    </button>
+  </div>
+  <mat-card class="content-card">
+    <div *ngFor="let item of patenti; let i = index" style="width: 100%">
+      <app-zahtev-kartica
+        [zahtev]="item"
+        [backgroundColor]="i % 2 === 0 ? 'light' : 'dark'"
+      ></app-zahtev-kartica>
+    </div>
+  </mat-card>
+</div>

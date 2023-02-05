@@ -12,15 +12,15 @@ import { ZahtevDTO } from '../../model/ZahtevDTO';
 @Component({
   selector: 'app-zahtev-autorska-prava',
   templateUrl: './zahtev-autorska-prava.component.html',
-  styleUrls: ['./zahtev-autorska-prava.component.css']
+  styleUrls: ['./zahtev-autorska-prava.component.css'],
 })
 export class ZahtevAutorskaPravaComponent implements OnInit {
   private fileInput!: ElementRef;
-  @ViewChild('fileInput', { static: false}) set content(content: ElementRef) {
-    if(content) {
-        this.fileInput = content;
+  @ViewChild('fileInput', { static: false }) set content(content: ElementRef) {
+    if (content) {
+      this.fileInput = content;
     }
- }
+  }
 
   step = 0;
 
@@ -46,14 +46,14 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
   useCaseForm: FormGroup = this.formGenerator.getUseCaseForm();
   descriptionForm: FormGroup = this.formGenerator.getDescriptionForm();
 
-  constructor(private formGenerator: AutorskaPravaFormGeneratorService,
-              private formValidator: AutorksaPravaFormValidatorService,
-              private factory: AutorskaPravaFactoryService,
-              private autorskaPravaService: AutorskaPravaService) { }
+  constructor(
+    private formGenerator: AutorskaPravaFormGeneratorService,
+    private formValidator: AutorksaPravaFormValidatorService,
+    private factory: AutorskaPravaFactoryService,
+    private autorskaPravaService: AutorskaPravaService
+  ) {}
 
-  ngOnInit(): void {
-  
-  }
+  ngOnInit(): void {}
 
   setStep(index: number) {
     this.step = index;
@@ -83,7 +83,7 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
   }
 
   onTypeChanged(event: any) {
-    this.selectedType = event.value;    
+    this.selectedType = event.value;
   }
 
   onFormaChanged(event: any) {
@@ -107,51 +107,84 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
-  uploadFile() {    
-    this.fileName = this.fileInput.nativeElement.files[0].name;    
+  uploadFile() {
+    this.fileName = this.fileInput.nativeElement.files[0].name;
   }
 
   validateForms(): boolean {
     var result: boolean = true;
-    result = this.formValidator.validatePodnosilac(this.selectedPodnosilac, this.individualForm, this.legalEntityForm);
+    result = this.formValidator.validatePodnosilac(
+      this.selectedPodnosilac,
+      this.individualForm,
+      this.legalEntityForm
+    );
     if (!result) return false;
     result = this.formValidator.validatePunomocnik(this.punomocnikForm);
     if (!result) return false;
     result = this.formValidator.validateTitle(this.titleForm);
     if (!result) return false;
-    result = this.formValidator.validatePrerada(this.selectedPrerada, this.adaptationForm);
+    result = this.formValidator.validatePrerada(
+      this.selectedPrerada,
+      this.adaptationForm
+    );
     if (!result) return false;
-    result = this.formValidator.validateAutor(this.isPodnosilacAutor, this.selectedAutorType, this.autorAliveForm, this.autorDeadForm);
+    result = this.formValidator.validateAutor(
+      this.isPodnosilacAutor,
+      this.selectedAutorType,
+      this.autorAliveForm,
+      this.autorDeadForm
+    );
     if (!result) return false;
-    result = this.formValidator.validatePrilozi(this.selectedForma, this.descriptionForm, this.fileInput.nativeElement.files[0]);
+    result = this.formValidator.validatePrilozi(
+      this.selectedForma,
+      this.descriptionForm,
+      this.fileInput.nativeElement.files[0]
+    );
     return result;
   }
 
   generateObrazac(): ObrazacA1 {
-    var zahtev: Zahtev = {      
+    var zahtev: Zahtev = {
       //podnosilac: this.factory.getPodnosilac(this.selectedPodnosilac, this.individualForm, this.legalEntityForm),
       fizicko_lice: this.factory.getFizickoLice(this.individualForm),
       pravno_lice: this.factory.getPravnoLice(this.legalEntityForm),
       pseudonim_znak_autora: this.pseudonimForm.controls['pseudonim'].value,
       punomocnik: this.factory.getPunomocnik(this.punomocnikForm),
       naslov_autorskog_dela: this.factory.getNaslovDela(this.titleForm),
-      naslov_delo_prerade: this.factory.getDeloPrerade(this.selectedPrerada, this.adaptationForm),
+      naslov_delo_prerade: this.factory.getDeloPrerade(
+        this.selectedPrerada,
+        this.adaptationForm
+      ),
       vrsta_autorskog_dela: this.factory.getVrstaDela(this.selectedType),
-      forma_zapisa_autorskog_dela: this.factory.getFormaZapisa(this.selectedForma),
+      forma_zapisa_autorskog_dela: this.factory.getFormaZapisa(
+        this.selectedForma
+      ),
       //podaci_o_autoru_nepodnosilac: this.factory.getAutorPodaci(this.isPodnosilacAutor, this.selectedAutorType, this.autorAliveForm, this.autorDeadForm),
       podnosilac_autor: this.factory.getPodnosilacAutor(this.isPodnosilacAutor),
       autor_anoniman: this.factory.getAutorAnoniman(this.selectedAutorType),
-      autor_ziv: this.factory.getAutorZiv(this.selectedAutorType, this.autorAliveForm),
-      autor_preminuo: this.factory.getAutorPreminuo(this.selectedAutorType, this.autorDeadForm),
-      autorsko_delo_stvoreno_radnim_odnosom: this.factory.getRadniOdnos(this.selectedRadniOdnos),
+      autor_ziv: this.factory.getAutorZiv(
+        this.selectedAutorType,
+        this.autorAliveForm
+      ),
+      autor_preminuo: this.factory.getAutorPreminuo(
+        this.selectedAutorType,
+        this.autorDeadForm
+      ),
+      autorsko_delo_stvoreno_radnim_odnosom: this.factory.getRadniOdnos(
+        this.selectedRadniOdnos
+      ),
       nacin_koriscenja: this.useCaseForm.controls['useCase'].value,
-      prilozi: this.factory.getPrilozi(this.selectedForma, this.descriptionForm, this.fileInput.nativeElement.files[0]),
+      prilozi: this.factory.getPrilozi(
+        this.selectedForma,
+        this.descriptionForm,
+        this.fileInput.nativeElement.files[0]
+      ),
       broj_prijave: '',
-      datum_podnosenja: this.factory.getDatumPodnosenja()
-    }
+      datum_podnosenja: this.factory.getDatumPodnosenja(),
+    };
     var obrazac: ObrazacA1 = {
       zavod: this.factory.generateZavod(),
-      zahtev: zahtev
+      zahtev: zahtev,
     };
     return obrazac;
   }
@@ -165,4 +198,13 @@ export class ZahtevAutorskaPravaComponent implements OnInit {
         });
     }
   }
+
+  // this.autorskaPravaService.get('A-20230201115724').subscribe((res: any) => {
+  //   const parser = new xml2js.Parser({strict: true, trim: true});
+  //   parser.parseString(res.toString(), (err, result) => {
+  //       console.log(result);
+  //       var zahtev: ZahtevDTO = this.factory.getZahtevDTO(result.ObrazacA1.zahtev[0]);
+  //       console.log(zahtev);
+  //     });
+  // });
 }

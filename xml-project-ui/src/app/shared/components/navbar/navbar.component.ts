@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
   // name na cirilici ako cemo tako ceo projekat
   patentOptions: MenuItem[] = [
     { name: 'Поднеси захтев', link: '/patentRequest' },
-    { name: 'patentOption 2', link: 'dummyLink2' },
+    { name: 'Преглед захтева', link: '/allPatents' },
     { name: 'patentOption 3', link: 'dummyLink3' },
   ];
 

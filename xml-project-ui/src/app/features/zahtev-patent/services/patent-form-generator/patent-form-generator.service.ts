@@ -17,7 +17,6 @@ export class PatentFormGeneratorService {
 
   createPatentForm(): FormGroup {
     return new FormGroup({
-      sender: new FormControl(''),
       nazivPronalaska: new FormGroup({
         nazivSrpski: new FormControl('', Validators.required),
         nazivEngleski: new FormControl('', Validators.required),
