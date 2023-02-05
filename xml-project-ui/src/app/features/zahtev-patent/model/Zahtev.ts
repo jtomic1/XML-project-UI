@@ -3,7 +3,14 @@ import { FizickoLice } from './FizickoLice';
 import { Kontakt } from './Kontakt';
 
 export interface Zahtev {
-  sender: string;
+  podaciZavod?: {
+    brojPrijave: string;
+    datumPodnosenja: string;
+    datumPrijema: string;
+    obrazlozenje: string;
+    sluzbenik: string;
+    statusZahteva: string;
+  };
   nazivPronalaska: {
     nazivSrpski: string;
     nazivEngleski: string;
@@ -16,39 +23,20 @@ export interface Zahtev {
     kontakt: Kontakt;
     podnosilacPronalazac: boolean;
   };
-  podaciOPronalazacu: {
-    pronalazacNaveden: boolean;
-    pronalazac: {
-      fizickoLice: FizickoLice;
-      lokacija: Adresa;
-      kontakt: Kontakt;
-    };
-  };
-  punomocnik: {
-    punomocnikSeNavodi: boolean;
-    funkcija: {
-      punomocnikZastupanje: boolean;
-      punomocnikPrijemPismena: boolean;
-      zajednickiPredstavnik: boolean;
-    };
-    tipPodnosioca: string;
-    fizickoLice: FizickoLice;
-    poslovnoIme: string;
-    lokacija: Adresa;
-    kontakt: Kontakt;
-  };
-  adresaZaDostavljanje: Adresa;
+  podaciOPronalazacu: any;
+  punomocnik: any;
+  adresaZaDostavljanje: Adresa | '';
   nacinDostavljanja: {
-    elektronski: boolean;
-    papirno: boolean;
+    elektronski: boolean | string;
+    papirno: boolean | string;
   };
   dopuna: {
-    dopunskaPrijava: boolean;
-    izdvojenaPrijava: boolean;
+    dopunskaPrijava: boolean | string;
+    izdvojenaPrijava: boolean | string;
     brojOsnovnePrijave: string;
     datumOsnovnePrijave: string;
   };
-  priznanjePravaPrvenstva?: PravaPrvenstva[];
+  priznanjePravaPrvenstva?: any;
 }
 
 export interface PravaPrvenstva {}

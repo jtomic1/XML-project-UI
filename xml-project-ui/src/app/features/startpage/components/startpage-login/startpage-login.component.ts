@@ -48,7 +48,8 @@ export class StartpageLoginComponent implements OnInit, OnDestroy {
             explicitArray: false,
           });
           parser.parseString(res, (error, result) => {
-            this.loggedUserService.setUserData(res);
+            console.log(result);
+            this.loggedUserService.setUserData(result.UserTokenState);
             this.redirectLoggedUser();
           });
         },
