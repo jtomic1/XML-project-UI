@@ -1,6 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { takeUntil } from 'rxjs';
 import { LoggedUserService } from 'src/app/shared/services/logged-user-service/logged-user.service';
+import {
+  MessageService,
+  MessageType,
+} from 'src/app/shared/services/message-service/message.service';
 import { Zahtev } from '../../model/Zahtev';
+import { PatentService } from '../../services/patent-service/patent.service';
+import { ResenjeDialogComponent } from '../resenje-dialog/resenje-dialog.component';
+import * as xml2js from 'xml2js';
 
 @Component({
   selector: 'app-zahtev-kartica',
@@ -11,7 +20,12 @@ export class ZahtevKarticaComponent implements OnInit {
   @Input() zahtev!: Zahtev;
   @Input() backgroundColor!: 'light' | 'dark';
 
-  constructor(private loggedService: LoggedUserService) {}
+  constructor(
+    private loggedService: LoggedUserService,
+    private patentService: PatentService,
+    private messageService: MessageService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {}
   convertTimestampToDate(timestamp: any) {
@@ -23,7 +37,7 @@ export class ZahtevKarticaComponent implements OnInit {
   }
 
   get showActionBar() {
-    return this.loggedService.user?.role !== 'ROLE_USER';
+    return this.loggedService.user?.role !== 'citizen';
   }
 
   showPunomocnik(): boolean {
@@ -68,5 +82,90 @@ export class ZahtevKarticaComponent implements OnInit {
   getStyleFromInput(): string {
     if (this.backgroundColor === 'light') return 'white';
     return '#673ab7';
+  }
+
+  downloadPDF(id: string) {
+    this.patentService.downloadPDF(id).subscribe((data) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(data);
+      a.download = id + '.pdf';
+      a.click();
+      this.messageService.showMessage(
+        'Преузимање успешно!',
+        MessageType.SUCCESS
+      );
+    });
+  }
+
+  downloadXHTML(id: string) {
+    this.patentService.downloadXHTML(id).subscribe((data) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(data);
+      a.download = id + '.html';
+      a.click();
+      this.messageService.showMessage(
+        'Преузимање успешно!',
+        MessageType.SUCCESS
+      );
+    });
+  }
+
+  downloadRDF(id: string) {
+    this.patentService.downloadRDF(id).subscribe((data) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(data);
+      a.download = id + '.rdf';
+      a.click();
+      this.messageService.showMessage(
+        'Преузимање успешно!',
+        MessageType.SUCCESS
+      );
+      console.log(data);
+    });
+  }
+
+  downloadJSON(id: string) {
+    this.patentService.downloadJSON(id).subscribe((data) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(data);
+      a.download = id + '.json';
+      a.click();
+      this.messageService.showMessage(
+        'Преузимање успешно!',
+        MessageType.SUCCESS
+      );
+    });
+  }
+
+  showResenjeDialog() {
+    const dialogRef = this.dialog.open(ResenjeDialogComponent);
+
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        res.sluzbenik =
+          this.loggedService.user!.name +
+          ' ' +
+          this.loggedService.user!.surname;
+        res.patent = this.zahtev.podaciZavod!.brojPrijave;
+        this.patentService.sendResenjeZahtev(res).subscribe((res2) => {
+          console.log(res2);
+          const parser = new xml2js.Parser({
+            strict: true,
+            trim: true,
+            explicitArray: false,
+          });
+          parser.parseString(res2, (error, result) => {
+            let patenti = this.patentService.convertPatentListToObjects([
+              result.ZahtevZaPriznanjePatenta,
+            ]);
+            this.zahtev = patenti[0];
+          });
+          this.messageService.showMessage(
+            'Захтев успешно разрешен!',
+            MessageType.SUCCESS
+          );
+        });
+      }
+    });
   }
 }

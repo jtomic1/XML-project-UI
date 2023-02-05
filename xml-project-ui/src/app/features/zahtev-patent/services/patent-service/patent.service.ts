@@ -45,14 +45,54 @@ export class PatentService {
     });
   }
 
-  patentSearch(query: string): Observable<any> {
-    let url = `${environment.patentUrl}/search/${query}`;
+  patentSearch(query: string, status: string): Observable<any> {
+    let url = `${environment.patentUrl}/search?query=${query}&status=${status}`;
     return this.http.get(url, {
       responseType: 'text',
     });
   }
 
+  downloadPDF(id: string) {
+    let url = `${environment.patentUrl}/downloadPDF/${id}`;
+    return this.http.get(url, {
+      responseType: 'blob',
+    });
+  }
+
+  downloadXHTML(id: string) {
+    let url = `${environment.patentUrl}/downloadXHTML/${id}`;
+    return this.http.get(url, {
+      responseType: 'blob',
+    });
+  }
+
+  downloadRDF(id: string) {
+    let url = `${environment.patentUrl}/downloadRDF/${id}`;
+    return this.http.get(url, {
+      responseType: 'blob',
+    });
+  }
+
+  downloadJSON(id: string) {
+    let url = `${environment.patentUrl}/downloadJSON/${id}`;
+    return this.http.get(url, {
+      responseType: 'blob',
+    });
+  }
+
+  sendResenjeZahtev(data: any) {
+    let url = `${environment.patentUrl}/sendResenje`;
+    let xml = JsonToXML.parse('resenje', data);
+    return this.http.post(url, xml, {
+      responseType: 'text',
+    });
+  }
+
   convertPatentListToObjects(inputList: any[]): Zahtev[] {
+    let iter = !!inputList[Symbol.iterator];
+    if (!iter) {
+      inputList = [inputList];
+    }
     let ret: Zahtev[] = [];
     for (let item of inputList) {
       console.log(item);
@@ -73,7 +113,7 @@ export class PatentService {
       };
       ret.push(newZahtev);
     }
-    if (this.loggedService.user!.role === 'ROLE_USER')
+    if (this.loggedService.user!.role === 'citizen')
       ret = ret.filter((x) => x.podaciZavod?.statusZahteva === 'accepted');
     return ret;
   }

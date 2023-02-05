@@ -26,7 +26,10 @@ export class StartpageLoginComponent implements OnInit, OnDestroy {
     private loggedUserService: LoggedUserService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.loggedUserService.isTokenPresent)
+      this.router.navigateByUrl('/allPatents');
+  }
 
   createLoginForm(): FormGroup {
     return new FormGroup({
@@ -63,7 +66,7 @@ export class StartpageLoginComponent implements OnInit, OnDestroy {
   }
 
   redirectLoggedUser() {
-    this.messageService.showMessage('SUCCESS', MessageType.SUCCESS);
+    this.router.navigateByUrl('/allPatents');
   }
 
   ngOnDestroy(): void {

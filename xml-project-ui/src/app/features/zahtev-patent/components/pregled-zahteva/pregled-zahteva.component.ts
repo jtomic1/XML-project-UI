@@ -21,8 +21,10 @@ export class PregledZahtevaComponent implements OnInit {
   showPretraga: boolean = true;
 
   patenti: any[] = [];
+  statusOptions: { status: string; name: string }[] = [];
   form: FormGroup = new FormGroup({
     pretraga: new FormControl(''),
+    status: new FormControl(''),
   });
 
   constructor(
@@ -33,8 +35,15 @@ export class PregledZahtevaComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
+  get statusControl() {
+    return this.form.controls['status'];
+  }
+
+  get disableStatusSelect() {
+    return this.loggedService.user!.role === 'citizen';
+  }
+
   ngOnInit(): void {
-    console.log(this.route.snapshot.url);
     if (this.route.snapshot.url[0].path === 'patent') {
       this.patentService
         .getPatentById(this.route.snapshot.url[1].path)
@@ -73,13 +82,20 @@ export class PregledZahtevaComponent implements OnInit {
         });
     } else {
       let role = this.loggedService.user?.role;
-      let searchParam;
-      console.log(role);
-      if (role !== 'ROLE_USER') {
-        searchParam = 'accepted';
-      } else searchParam = 'all';
+      if (role === 'citizen') {
+        this.form.controls['status'].setValue('accepted');
+        this.statusOptions = [{ status: 'accepted', name: 'Поднети захтеви' }];
+      } else {
+        this.form.controls['status'].setValue('all');
+        this.statusOptions = [
+          { status: 'all', name: 'Сви захтеви' },
+          { status: 'accepted', name: 'Поднети захтеви' },
+          { status: 'declined', name: 'Одбијени захтеви' },
+          { status: 'pending', name: 'Неразрешени захтеви' },
+        ];
+      }
       this.patentService
-        .getPatents(searchParam)
+        .getPatents(this.statusControl.value)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
           const parser = new xml2js.Parser({
@@ -88,7 +104,6 @@ export class PregledZahtevaComponent implements OnInit {
             explicitArray: false,
           });
           parser.parseString(res, (error, result) => {
-            console.log(result);
             if (result.ArrayList === '') return;
             this.patenti = this.patentService.convertPatentListToObjects(
               result.ArrayList.item
@@ -101,7 +116,10 @@ export class PregledZahtevaComponent implements OnInit {
 
   search() {
     this.patentService
-      .patentSearch(this.form.controls['pretraga'].value)
+      .patentSearch(
+        this.form.controls['pretraga'].value,
+        this.statusControl.value
+      )
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {

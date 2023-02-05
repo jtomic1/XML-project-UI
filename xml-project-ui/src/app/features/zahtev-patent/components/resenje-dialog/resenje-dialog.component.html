@@ -1,0 +1,38 @@
+<mat-card class="card">
+  <h1 class="title">Решење захтева</h1>
+  <mat-card-content class="card-content">
+    <p>Молимо Вас унесите неопходне податке за решење захтева</p>
+    <span style="display: flex; justify-content: center">
+      <form [formGroup]="form">
+        <mat-form-field>
+          <mat-label>Одлука</mat-label>
+          <mat-select formControlName="status">
+            <mat-option [value]="'accepted'">Одобрен</mat-option>
+            <mat-option [value]="'declined'">Одбијен</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Шифра</mat-label>
+          <input matInput formControlName="sifra" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Образложење</mat-label>
+          <textarea matInput formControlName="obrazlozenje"></textarea>
+        </mat-form-field>
+      </form>
+    </span>
+  </mat-card-content>
+  <mat-card-actions style="text-align: center">
+    <button
+      mat-button
+      color="primary"
+      (click)="onConfirmClick()"
+      [disabled]="form.invalid"
+    >
+      POŠALJI
+    </button>
+    <button mat-button (click)="onCancelClick()">ODUSTANI</button>
+  </mat-card-actions>
+</mat-card>

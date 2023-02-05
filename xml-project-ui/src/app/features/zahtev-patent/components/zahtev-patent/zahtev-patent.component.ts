@@ -36,108 +36,108 @@ export class ZahtevPatentComponent implements OnInit {
     this.subscribePunomocnikChange();
     this.subscribeDopunaChange();
     this.subscribePronalazacChange();
-    this.form.patchValue({
-      sender: '',
-      nazivPronalaska: {
-        nazivSrpski: 'Fudbalska Lopta',
-        nazivEngleski: 'Football',
-      },
-      podnosilacPrijave: {
-        tipPodnosioca: 'fizicko-lice',
-        fizickoLice: {
-          ime: 'Marcus',
-          prezime: 'RASHFORD',
-          drzavljanstvo: 'Englesko',
-        },
-        poslovnoIme: '',
-        lokacija: {
-          ulica: 'Mancesterska',
-          broj: '22',
-          postanskiBroj: '22333',
-          mesto: 'Manchester',
-          drzava: 'Engleska',
-        },
-        kontakt: {
-          brojTelefona: '123123123',
-          email: 'mail@mail.com',
-          brojFaksa: '123123232',
-        },
-        podnosilacPronalazac: false,
-      },
-      podaciOPronalazacu: {
-        pronalazacNaveden: true,
-        pronalazac: {
-          fizickoLice: {
-            ime: 'Marcus',
-            prezime: 'RASHFORDSKI',
-          },
-          lokacija: {
-            ulica: 'Ljermontova',
-            broj: '11',
-            postanskiBroj: '22222',
-            mesto: 'Savnik',
-            drzava: 'Crna Gora',
-          },
-          kontakt: {
-            brojTelefona: '2312312312',
-            email: 'mail@mail.com',
-            brojFaksa: '1312312322',
-          },
-        },
-      },
-      punomocnik: {
-        punomocnikSeNavodi: true,
-        funkcija: {
-          punomocnikZastupanje: false,
-          punomocnikPrijemPismena: true,
-          zajednickiPredstavnik: false,
-        },
-        tipPodnosioca: 'poslovni-subjekat',
-        fizickoLice: {
-          ime: '',
-          prezime: '',
-        },
-        poslovnoIme: 'KURAJBER DOO',
-        lokacija: {
-          ulica: 'Pakistanska',
-          broj: '22',
-          postanskiBroj: '20202',
-          mesto: 'Karachi',
-        },
-        kontakt: {
-          brojTelefona: '213213213',
-          email: 'p3r5kul45@gmail.com',
-        },
-      },
-      adresaZaDostavljanje: {
-        ulica: 'adasdasdas',
-        broj: '13212321',
-        postanskiBroj: '22222',
-        mesto: 'Kurdska',
-      },
-      nacinDostavljanja: {
-        elektronski: false,
-        papirno: true,
-      },
-      dopuna: {
-        dopunskaPrijava: true,
-        izdvojenaPrijava: false,
-        brojOsnovnePrijave: 'P1234',
-        datumOsnovnePrijave: '2023-01-31T23:00:00.000Z',
-      },
-      priznanjePravaPrvenstva: [
-        {
-          datumPodnosenja: '2022-12-14T23:00:00.000Z',
-          brojPrijave: 'P2222',
-          dvoslovnaOznaka: 'AS',
-        },
-        {
-          datumPodnosenja: '2023-01-10T23:00:00.000Z',
-          brojPrijave: 'P3333',
-          dvoslovnaOznaka: 'PA',
-        },
-      ],
-    });
+    // this.form.patchValue({
+    //   sender: '',
+    //   nazivPronalaska: {
+    //     nazivSrpski: 'Fudbalska Lopta',
+    //     nazivEngleski: 'Football',
+    //   },
+    //   podnosilacPrijave: {
+    //     tipPodnosioca: 'fizicko-lice',
+    //     fizickoLice: {
+    //       ime: 'Marcus',
+    //       prezime: 'RASHFORD',
+    //       drzavljanstvo: 'Englesko',
+    //     },
+    //     poslovnoIme: '',
+    //     lokacija: {
+    //       ulica: 'Mancesterska',
+    //       broj: '22',
+    //       postanskiBroj: '22333',
+    //       mesto: 'Manchester',
+    //       drzava: 'Engleska',
+    //     },
+    //     kontakt: {
+    //       brojTelefona: '123123123',
+    //       email: 'mail@mail.com',
+    //       brojFaksa: '123123232',
+    //     },
+    //     podnosilacPronalazac: false,
+    //   },
+    //   podaciOPronalazacu: {
+    //     pronalazacNaveden: true,
+    //     pronalazac: {
+    //       fizickoLice: {
+    //         ime: 'Marcus',
+    //         prezime: 'RASHFORDSKI',
+    //       },
+    //       lokacija: {
+    //         ulica: 'Ljermontova',
+    //         broj: '11',
+    //         postanskiBroj: '22222',
+    //         mesto: 'Savnik',
+    //         drzava: 'Crna Gora',
+    //       },
+    //       kontakt: {
+    //         brojTelefona: '2312312312',
+    //         email: 'mail@mail.com',
+    //         brojFaksa: '1312312322',
+    //       },
+    //     },
+    //   },
+    //   punomocnik: {
+    //     punomocnikSeNavodi: true,
+    //     funkcija: {
+    //       punomocnikZastupanje: false,
+    //       punomocnikPrijemPismena: true,
+    //       zajednickiPredstavnik: false,
+    //     },
+    //     tipPodnosioca: 'poslovni-subjekat',
+    //     fizickoLice: {
+    //       ime: '',
+    //       prezime: '',
+    //     },
+    //     poslovnoIme: 'KURAJBER DOO',
+    //     lokacija: {
+    //       ulica: 'Pakistanska',
+    //       broj: '22',
+    //       postanskiBroj: '20202',
+    //       mesto: 'Karachi',
+    //     },
+    //     kontakt: {
+    //       brojTelefona: '213213213',
+    //       email: 'p3r5kul45@gmail.com',
+    //     },
+    //   },
+    //   adresaZaDostavljanje: {
+    //     ulica: 'adasdasdas',
+    //     broj: '13212321',
+    //     postanskiBroj: '22222',
+    //     mesto: 'Kurdska',
+    //   },
+    //   nacinDostavljanja: {
+    //     elektronski: false,
+    //     papirno: true,
+    //   },
+    //   dopuna: {
+    //     dopunskaPrijava: true,
+    //     izdvojenaPrijava: false,
+    //     brojOsnovnePrijave: 'P1234',
+    //     datumOsnovnePrijave: '2023-01-31T23:00:00.000Z',
+    //   },
+    //   priznanjePravaPrvenstva: [
+    //     {
+    //       datumPodnosenja: '2022-12-14T23:00:00.000Z',
+    //       brojPrijave: 'P2222',
+    //       dvoslovnaOznaka: 'AS',
+    //     },
+    //     {
+    //       datumPodnosenja: '2023-01-10T23:00:00.000Z',
+    //       brojPrijave: 'P3333',
+    //       dvoslovnaOznaka: 'PA',
+    //     },
+    //   ],
+    // });
   }
 
   getFormGroup(formGroupName: string): FormGroup {
